@@ -3,32 +3,28 @@
 using namespace std;
 
 int main() {
-    int n, m, k;
-    scanf("%d %d %d", &n, &k, &m);
+    ios::sync_with_stdio(0), cin.tie(0);
+    int n, m, q;
+    cin >> n >> m >> q;
+    int ok[n+1], cnt = 0;
     vector <pair <int, int>> v;
-    int ok[n];
-    for (int i = 0; i < n; i++) {
-        ok[i] = 1;
-        int s, f;
-        scanf("%d %d", &s, &f);
-        v.emplace_back(s, 1);
-        v.emplace_back(f, 0);
+    for (int i = 1; i <= n; i++) {
+        int l, r;
+        cin >> l >> r;
+        ok[i] = 0;
+        v.emplace_back(l, i);
+        v.emplace_back(r+1, -i);
     }
     sort(v.begin(), v.end());
-    int c = 0;
-    for (auto [x, y] : v) {
-        if (!ok[x]) continue;
-        if (y = 0) c++;
-        else c--;
-        if (c > k) {
-            ok[x] = 0;
-            c--;
-        }
+    for (auto [x, k] : v) {
+        if (k < 0) {
+            k = -k;
+            if (ok[k]) cnt--;
+        } else if (cnt < m) cnt++, ok[k] = 1;
     }
-    for (int i = 0; i < m; i++) {
-        int q;
-        scanf("%d", &q);
-        if (ok[q-1]) printf("Y ");
-        else printf("N ");
+    while (q--) {
+        int k;
+        cin >> k;
+        cout << (ok[k] ? "Y " : "N ");
     }
 }

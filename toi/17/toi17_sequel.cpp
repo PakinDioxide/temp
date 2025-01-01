@@ -2,23 +2,29 @@
 
 using namespace std;
 
-int a[100005], dp[100005][400];
-
 int main() {
-    int n, q;
-    scanf("%d %d", &n, &q);
-    int sq = sqrt(n);
-    for (int i = 1; i <= n; i++) scanf("%d", &a[i]);
-    for (int m = 1; m <= sq; m++) for (int l = 1; l <= n; l++) dp[m][l] = dp[m][max(0, l-m)] + a[l];
-    while (q--) {
-        int l, m, r, ans = 0;
-        scanf("%d %d %d", &l, &m, &r);
-        if (m > sq) for (; l <= r; l += m) ans += a[l];
-        else {
-            r = l + ((r-l)/m)*m;
-            l = max(0, l-m);
-            ans = dp[m][r] - dp[m][l];
+    ios::sync_with_stdio(0), cin.tie(0);
+    int n, q, s;
+    cin >> n >> q;
+    s = sqrt(n);
+    int a[n], dp[s+1][n];
+    for (int i = 0; i < n; i++) cin >> a[i];
+    for (int k = n-1; k > 0; k--) {
+        for (int i = 0; i < n; i++) {
+            if (i+k >= n) dp[k][i] = dp[n][i];
+            else dp[k][i] = dp[min(n, 2*k)][i] + dp[min(n, 2*k)][i+k];
         }
-        printf("%d ", ans);
+    }
+    while (q--) {
+        int l, r, m;
+        cin >> l >> m >> r;
+        l--;
+        if ((r-l)%m != 0) r += (m-(r-l)%m);
+        if (r >= n) cout << dp[m][l] << ' ';
+        else cout << dp[m][l] - dp[m][r] << ' ';
     }
 }
+
+/*
+q - - - - q - - - - q -
+*/
