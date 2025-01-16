@@ -6,28 +6,18 @@ int main() {
     ios::sync_with_stdio(0), cin.tie(0);
     int n, k;
     cin >> n >> k;
-    priority_queue <int> s;
-    int a[n+2];
-    a[0] = -1;
-    a[n+1] = -1;
-    for (int i = 1; i <= n+1; i++) {
-        if (i <= n) cin >> a[i];
-        if (i > 1 && a[i-1] > a[i-2] && a[i-1] > a[i]) s.push(a[i-1]);
+    vector <int> v;
+    int a[n];
+    for (int &e : a) cin >> e;
+    for (int i = 0; i < n; i++) {
+        if (i == 0) {if (a[i] > a[i+1]) v.emplace_back(a[i]);}
+        else if (i == n-1) {if (a[i] > a[i-1]) v.emplace_back(a[i]);}
+        else if (a[i] > a[i-1] && a[i] > a[i+1]) v.emplace_back(a[i]);
     }
-    if (s.empty()) {
-        cout << -1;
-        return 0;
-    }
-    vector <int> s2;
-    int r = -1, c = 0;
-    while (!s.empty() && c < k) {
-        if (s.top() != r) {
-            s2.push_back(s.top());
-            r = s.top();
-            c++;
-        }
-        s.pop();
-    }
-    if (s2.size() >= k) for (auto i : s2) cout << i << '\n';
-    else for (int i = s2.size()-1; i >= 0; i--) cout << s2[i] << '\n';
+    sort(v.begin(), v.end());
+    vector <int> kv;
+    for (int i = 0; i < v.size(); i++) if (i == 0 || v[i] != v[i-1]) kv.push_back(v[i]);
+    if (kv.size() == 0) cout << -1 << '\n';
+    else if (kv.size() < k) for (int e : kv) cout << e << '\n';
+    else for (int i = 0; i < k; i++) cout << kv[kv.size()-i-1] << '\n';
 }

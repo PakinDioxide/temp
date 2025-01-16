@@ -1,29 +1,55 @@
+// #include <bits/stdc++.h>
+// #define ll long long
+
+// using namespace std;
+
+// int main() {
+//     int n;
+//     cin >> n;
+//     ll a[n];
+//     for (int i = 0; i < n; i++) cin >> a[i];
+//     ll cnt = 0;
+//     for (int i = 0; i < n; i++) {
+//         int idx = lower_bound(a, a+n, 2*a[i]) - a;
+//         cnt += n-idx;
+//     }
+//     cout << cnt << '\n';
+// }
+
 #include <bits/stdc++.h>
-
 using namespace std;
+#define int long long
+int32_t main(){
+//ios::sync_with_stdio(false);cin.tie(0);
+    int n;
+    cin>>n;c
 
-int n, a[25], ans = INT_MAX;
-
-void brf(int i, int c, int gcd) {
-    if (i == n || gcd == 1) {
-        if (gcd == 1) ans = min(ans, c);
-        return;
+    vector <int> mochi(n);
+    vector <int> sizewant(n);
+    for(int i=0;i<n;i++){
+        cin>>mochi[i];
+        sizewant[i]=mochi[i]*2;
     }
-    brf(i+1, c, gcd == -1 ? a[i] : __gcd(gcd, a[i]));
-    brf(i+1, c + n-i, gcd == - 1 ? __gcd(a[i], i+1) : __gcd(gcd, __gcd(a[i], i+1)));
-}
+    int indexsize=n-1;
+    int ans=0;
+    for(int i=n-1;i>=0;i--){
+        
+        for(indexsize;indexsize>=0;indexsize--){
+            
+            if(mochi[i]>=sizewant[indexsize]){
+                
+                ans=ans+indexsize+1;
+                break;
 
-void solve() {
-    ans = INT_MAX;
-    cin >> n;
-    for (int i = 0; i < n; i++) cin >> a[i];
-    brf(0, 0, -1);
-    cout << ans << '\n';
-}
+            }
 
-int main() {
-    ios::sync_with_stdio(0), cin.tie(0);
-    int t;
-    cin >> t;
-    while (t--) solve();
+        }
+        
+        if(indexsize==-1){
+            cout<<ans;
+            return 0;
+        }
+
+    }
+    cout<<ans;
 }
