@@ -38,7 +38,7 @@ ll sum(int l, int r, int x, int y, int node) {
     }
 }
  
-void inc(int l, int r, int x, int y, int k, int node) {
+void inc(int l, int r, int x, int y, ll k, int node) {
     if (x <= l && r <= y) seg[node] += (r-l+1)*k, laz[node] += k;
     else {
         int mid = (l+r)/2;
@@ -59,7 +59,7 @@ void inc(int l, int r, int x, int y, int k, int node) {
     }
 }
  
-void upd(int l, int r, int x, int y, int k, int node) {
+void upd(int l, int r, int x, int y, ll k, int node) {
     if (x <= l && r <= y) seg[node] = (r-l+1)*k, sett[node] = k, laz[node] = 0;
     else {
         int mid = (l+r)/2;
@@ -89,11 +89,11 @@ int main() {
         int t;
         cin >> t;
         if (t == 1) {
-            int l, r, x;
+            int l, r; ll x;
             cin >> l >> r >> x;
             inc(1, n, l, r, x, 0);
         } else if (t == 2) {
-            int l, r, x;
+            int l, r; ll x;
             cin >> l >> r >> x;
             upd(1, n, l, r, x, 0);
         } else {

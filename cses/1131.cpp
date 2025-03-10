@@ -3,33 +3,25 @@
 using namespace std;
 
 vector <int> adj[200005];
-int dis[200005], l[200005];
+int dp[200005][2];
 
 void dfs(int u, int p) {
-    dis[u] = 0;
-    l[u] = u;
+    int a = 0, b = 0, c = 0;
     for (int v : adj[u]) {
         if (v == p) continue;
         dfs(v, u);
-        if (dis[v] > dis[u]) {
-            dis[u] = dis[v];
-            l[u] = l[v];
-        }
+        if (dp[v][0] >= a) b = a, a = dp[v][0];
+        else if (dp[v][0] >= b) b = dp[v][0];
+        c = max(c, dp[v][1]);
     }
-    dis[u]++;
+    dp[u][0] = a+1;
+    dp[u][1] = max(a+b+1, c);
 }
 
 int main() {
     int n;
-    scanf("%d", &n);
-    for (int i = 0; i < n-1; i++) {
-        int u, v;
-        scanf("%d %d", &u, &v);
-        adj[u].push_back(v);
-        adj[v].push_back(u);
-    }
-    dfs(1, -1);
-    int k = l[1];
-    dfs(k, -1);
-    printf("%d", dis[k]-1);
+    cin >> n;
+    for (int i = 1, u, v; i < n; i++) cin >> u >> v, adj[u].push_back(v), adj[v].push_back(u);
+    dfs(1, 0);
+    cout << max(dp[1][0], dp[1][1])-1 << '\n';
 }

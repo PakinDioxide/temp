@@ -1,41 +1,31 @@
 #include <bits/stdc++.h>
+#define ll long long
 
 using namespace std;
 
 int main() {
+    ios::sync_with_stdio(0), cin.tie(0);
     int n, m;
     cin >> n >> m;
-
-    vector <vector <pair <long long, long long>>> adj(n+1);
-
-    for (int i = 0; i < m; i++) {
-        long long a, b, c;
-        cin >> a >> b >> c;
-        adj[a].push_back({b, c});
-    }
-
-    priority_queue <pair <long long, long long>> q;
-    vector <long long> dis(n+1, LLONG_MAX);
-    vector <bool> vis(n+1);
+    vector <pair <int, ll>> adj[n+5];
+    while (m--) {int u, v; ll w; cin >> u >> v >> w; adj[u].emplace_back(v, w);}
+    ll dis[n+5], vis[n+5];
+    for (int i = 1; i <= n; i++) vis[i] = 0, dis[i] = LLONG_MAX;
     dis[1] = 0;
-    q.push({0, 1});
-
+    priority_queue <pair <ll, int>> q;
+    q.emplace(0, 1);
     while (!q.empty()) {
-        long long x = q.top().second;
+        int u = q.top().second;
         q.pop();
-
-        if (vis[x]) continue;
-        vis[x] = true;
-
-        for (auto u : adj[x]) {
-            long long b = u.first, w = u.second;
-
-            if (dis[x] + w < dis[b]) {
-                dis[b] = dis[x] + w;
-                q.push({-dis[b], b});
+        if (vis[u]) continue;
+        vis[u] = 1;
+        for (auto [v, w] : adj[u]) {
+            if (dis[v] > dis[u] + w) {
+                dis[v] = dis[u] + w;
+                q.emplace(-dis[v], v);
             }
         }
     }
-
     for (int i = 1; i <= n; i++) cout << dis[i] << ' ';
+    cout << '\n';
 }
