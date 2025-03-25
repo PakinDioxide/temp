@@ -1,22 +1,21 @@
+/*
+    author  : PakinDioxide
+    created : 20/03/2025 03:15
+    task    : 1635
+*/
 #include <bits/stdc++.h>
+#define ll long long
 
 using namespace std;
 
 int main() {
-    int n, x;
-    long long MOD = 1e9+7;
-    cin >> n >> x;
-    vector <long long> a(n), c(x+1);
-
-    for (int i = 0; i < n; i++) cin >> a[i];
-
-    c[0] = 1;
-
-    for (int i = 1; i <= x; i++) {
-        for (auto j : a) {
-            if (j <= i) c[i] = (c[i] + c[i-j]) % MOD;
-        }
-    }
-
-    cout << c[x] % MOD;
+    ios::sync_with_stdio(0), cin.tie(0);
+    int n, k;
+    cin >> n >> k;
+    ll dp[k+1], a[n], mod = 1e9+7;
+    for (auto &e : a) cin >> e;
+    memset(dp, 0, sizeof(dp));
+    dp[0] = 1;
+    for (int i = 1; i <= k; i++) for (auto &e : a) if (i >= e) dp[i] = (dp[i] + dp[i-e]) % mod;
+    cout << dp[k] << '\n';
 }

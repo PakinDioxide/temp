@@ -1,4 +1,10 @@
+/*
+    author  : PakinDioxide
+    created : 24/03/2025 15:25
+    task    : toi8_electricity
+*/
 #include <bits/stdc++.h>
+#define ll long long
 
 using namespace std;
 
@@ -7,14 +13,14 @@ int main() {
     int n, k;
     cin >> n >> k;
     int a[n];
-    for (int i = 0; i < n; i++) cin >> a[i];
+    for (auto &e : a) cin >> e;
     deque <pair <int, int>> dq;
-    dq.emplace_back(0, a[0]);
+    dq.emplace_back(a[0], 0);
     for (int i = 1; i < n; i++) {
-        while (!dq.empty() && i - dq.front().first > k) dq.pop_front();
-        int e = dq.front().second + a[i];
-        while (!dq.empty() && dq.back().second > e) dq.pop_back();
-        dq.emplace_back(i, e);
+        while (dq.front().second < i-k) dq.pop_front();
+        int nw = a[i] + dq.front().first;
+        while (dq.back().first >= nw) dq.pop_back();
+        dq.emplace_back(nw, i);
     }
-    cout << dq.back().second;
+    cout << dq.back().first << '\n';
 }

@@ -1,26 +1,32 @@
+/*
+    author  : PakinDioxide
+    created : 11/03/2025 19:56
+    task    : 1140
+*/
 #include <bits/stdc++.h>
+#define ll long long
 
 using namespace std;
 
-int n;
-map <pair <int, int>, int> dp, vis;
-vector <vector <int>> a;
-
-int solve(int c, int p) {
-    if (c == n) return 0;
-    if (vis[{c, p}]) return dp[{c, p}];
-    vis[{c, p}] = 1;
-    int m = 0;
-    if (p < a[c][1]) m = max(m, a[c][2] + solve(c+1, a[c][0]));
-    m = max(m, solve(c+1, p));
-    return dp[{c, p}] = m;
-}
-
 int main() {
     ios::sync_with_stdio(0), cin.tie(0);
+    int n;
     cin >> n;
-    a.resize(n, vector <int>(3));
-    for (int i = 0; i < n; i++) cin >> a[i][1] >> a[i][0] >> a[i][2];
+    vector <tuple <ll, ll, ll>> a(n);
+    int b[n+1];
+    b[0] = 0;
+    for (auto &[r, l, p] : a) cin >> l >> r >> p;
+    a.emplace_back(0, 0, 0);
     sort(a.begin(), a.end());
-    cout << solve(0, -1);
+    for (int i = 1; i <= n; i++) b[i] = -get<0>(a[i]);
+    sort(b, b+n+1);
+    ll dp[n+1];
+    dp[0] = 0;
+    for (int i = 1; i <= n; i++) {
+        dp[i] = dp[i-1];
+        auto [r, l, p] = a[i];
+        int idx = n - (upper_bound(b, b+n+1, -l) - b);
+        dp[i] = max(dp[i], dp[idx] + p);
+    }
+    cout << dp[n] << '\n';
 }

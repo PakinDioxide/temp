@@ -1,3 +1,8 @@
+/*
+    author  : PakinDioxide
+    created : 16/03/2025 01:41
+    task    : d
+*/
 #include <bits/stdc++.h>
 #define ll long long
 
@@ -6,23 +11,28 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    ll a[n], b[n];
-    for (auto &e : a) cin >> e, e = abs(e), e %= 10;
-    for (auto &e : b) cin >> e;
-    int can[10];
-    memset(can, 0, sizeof(can));
-    for (int i = 0; i < n; i++) {
-        int ok = 0;
-        for (int j = 0; j < 10; j++) if ((a[i]*j)%10 == b[i] && can[j]) ok = 1;
-        if (ok || a[i] == b[i]) cout << 'Y';
-        else cout << 'N';
-        int ncan[10];
-        memset(ncan, 0, sizeof(ncan));
-        for (int j = 0; j < 10; j++) if (can[j]) ncan[(j*a[i])%10] = 1;
-        for (int j = 0; j < 10; j++) can[j] = max(can[j], ncan[j]);
-        can[a[i]] = 1;
+    int vis[n+1], a[n+1], pos[n+1];
+    vector <int> k;
+    memset(vis, 0, sizeof(vis));
+    for (int i = 1; i <= n; i++) {
+        cin >> a[i];
+        if (!vis[a[i]]) k.push_back(a[i]);
+        vis[a[i]] = 1;
     }
-    cout << '\n';
+    for (int i = 0; i < k.size(); i++) pos[k[i]] = i;
+    int ans = n, idx = k.size()-1, cnt = 0;
+    for (int i = n; i > 0; i--) {
+        if (a[i] == k[idx]) cnt++, idx--;
+        else if (a[i] == k.back()) cnt = 1, idx = k.size()-2;
+        else if (idx != k.size()-1 && a[i] == k[idx+1]) cnt++;
+        else if (pos[a[i]] > idx) cnt = 0, idx = k.size()-1;
+        else if (idx < k.size()-1) cnt++;
+        if (idx == -1) {
+            ans = min(ans, cnt);
+            cnt = 0, idx = k.size()-1;
+        }
+    }
+    cout << ans << '\n';
 }
 
 int main() {

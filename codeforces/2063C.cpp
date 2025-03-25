@@ -1,3 +1,8 @@
+/*
+    author  : PakinDioxide
+    created : 11/03/2025 16:18
+    task    : 
+*/
 #include <bits/stdc++.h>
 #define ll long long
 
@@ -6,22 +11,35 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
+    vector <int> adj[n+1];
     int deg[n+1];
-    set <int> adj[n+1];
-    pair <int, int> V[n-1];
     memset(deg, 0, sizeof(deg));
-    for (int i = 0; i < n-1; i++) {int u, v; cin >> u >> v; V[i] = {u, v}, adj[u].insert(v), adj[v].insert(u), deg[u]++, deg[v]++;}
-    pair <int, int> a = {deg[1], 1}, b = {deg[2], 1};
-    if (a.first < b.first) swap(a, b);
-    for (int i = n; i >= 1; i--) {
-        if (deg[i] > a.first) b = a, a = make_pair(deg[i], i);
-        else if (deg[i] > b.first) b = make_pair(deg[i], i);
-        else if (deg[i] == b.first && adj[a.second].find(i) == adj[a.second].end()) b = make_pair(deg[i], i);
+    for (int i = 1; i < n; i++) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+        deg[u]++, deg[v]++;
     }
-    int ans = n-2;
-    for (auto [u, v] : V) ans -= !(u == a.second || u == b.second || v == a.second || v == b.second);
-    cout << ans << '\n';
-    // cout << a.second << ' ' << b.second << '\n';
+    multiset <int> ms;
+    for (int i = 1; i <= n; i++) ms.insert(deg[i]);
+    int ans = -1;
+    for (int i = 1; i <= n; i++) {
+        int sum = deg[i];
+        ms.erase(ms.find(deg[i]));
+        for (int v : adj[i]) {
+            ms.erase(ms.find(deg[v]));
+            ms.insert(deg[v]-1);
+        }
+        sum += *ms.rbegin() - 1;
+        for (int v : adj[i]) {
+            ms.erase(ms.find(deg[v]-1));
+            ms.insert(deg[v]);
+        }
+        ms.insert(deg[i]);
+        ans = max(ans, sum);
+    }
+    cout << ans << '\n';    
 }
 
 int main() {

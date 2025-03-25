@@ -1,7 +1,8 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <string>
 #include "combo.h"
-
-using namespace std;
 
 namespace {
 
@@ -19,22 +20,6 @@ void wrong_answer(const char *MSG) {
 }
 
 }  // namespace
-
-string guess_sequence(int n) {
-    char a[4] = {'A', 'B', 'X', 'Y'};
-    string s = "";
-    while (s.size() < n) {
-        ns 
-        for (int i = 0; i < 4; i++) {
-            string ns = a[i] + s + s + a[i];
-            if (press(ns) > s.size()) {
-                if (press(a[i] + s) > s.size()) s = a[i] + s;
-                else s = s + a[i];
-            }
-        }
-    }
-    return s;
-}
 
 int press(std::string p) {
   if (++num_moves > MAX_NUM_MOVES) {
@@ -74,7 +59,6 @@ int main() {
 
   num_moves = 0;
   std::string answer = guess_sequence(N);
-  cout << answer << '\n';
   if (answer != S) {
     wrong_answer("wrong guess");
     exit(0);

@@ -15,13 +15,13 @@ int main() {
         adj[u].push_back(v);
         adj[v].push_back(u);
     }
-    ll mx = 0, idx = 0, ans = 0, vis[n+1];
+    ll mx = -1, idx = 0, ans = 0, vis[n+1];
     memset(vis, 0, sizeof(vis));
     for (int i = 1; i <= n; i++) if (h[i] > mx) mx = h[i], idx = i;
     priority_queue <tuple <ll, ll, ll, int>> q;
-    q.emplace(-h[idx], 0, 0, idx);
+    q.emplace(0, 0, -h[idx], idx);
     while (!q.empty()) {
-        auto [H, w, k, u] = q.top();
+        auto [k, w, H, u] = q.top();
         w=-w;
         q.pop();
         if (vis[u]) continue;
@@ -30,8 +30,8 @@ int main() {
         // cout << ans << ' ' << w << ' ' << k << ' ' << u << '\n';
         for (int v : adj[u]) {
             if (vis[v]) continue;
-            if (h[v] <= h[u]) q.emplace(-h[v], -h[u], k + h[u] - h[v], v);
-            else q.emplace(-h[v], -(h[u] + max(0LL, (h[v] - h[u]) - k)), max(0LL, k - (h[v] - h[u])), v);
+            if (h[v] <= h[u]) q.emplace(k + h[u] - h[v], -h[u], -h[v], v);
+            else q.emplace(max(0LL, k - (h[v] - h[u])), -(h[u] + max(0LL, (h[v] - h[u]) - k)), -h[v], v);
         }
     }
     cout << ans << '\n';
