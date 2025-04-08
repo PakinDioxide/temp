@@ -17,7 +17,7 @@ void solve() {
         cin >> u >> v;
         adj[u].emplace_back(v);
     }
-    if (k == 1) {cout << 0 << ' ' << s << '\n';}
+    if (k == 1) {cout << 0 << ' ' << s << '\n'; return;}
     ll cyc[n+1];
     for (int i = 1; i <= n; i++) cyc[i] = LLONG_MAX;
     for (int i = 1; i <= n; i++) {

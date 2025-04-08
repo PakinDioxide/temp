@@ -1,41 +1,43 @@
 /*
     author  : PakinDioxide
-    created : 13/03/2025 15:44
-    task    : 1680
+    created : 07/04/2025 03:17
+    task    : 1678
 */
 #include <bits/stdc++.h>
 #define ll long long
 
 using namespace std;
 
-vector <int> adj[100005];
-int dp[100005], par[100005], ok[100005], vis[100005];
+const int MX = 1e5+5;
+
+int n, m, vis[MX], dp[MX], par[MX];
+vector <int> adj[MX], topo;
 
 void dfs(int u) {
     if (vis[u]) return;
     vis[u] = 1;
-    dp[u] = 1;
-    for (int v : adj[u]) {
-        dfs(v);
-        if (ok[v] && dp[v] + 1 > dp[u]) dp[u] = dp[v] + 1, ok[u] = 1, par[u] = v;
-    }
+    for (auto v : adj[u]) dfs(v);
+    topo.emplace_back(u);
 }
 
 int main() {
     ios::sync_with_stdio(0), cin.tie(0);
-    int n, m;
     cin >> n >> m;
-    while (m--) {
+    for (int i = 0; i < m; i++) {
         int u, v;
         cin >> u >> v;
-        adj[u].push_back(v);
+        adj[v].emplace_back(u);
     }
-    ok[n] = 1;
-    dfs(1);
-    if (ok[1]) {
-        cout << dp[1] << '\n';
-        int k = 1;
-        while (k != n) cout << k << ' ', k = par[k];
-        cout << k << '\n';
-    } else cout << "IMPOSSIBLE\n";
+    for (int i = 1; i <= n; i++) dp[i] = INT_MIN;
+    dp[1] = 0;
+    dfs(n);
+    for (auto &u : topo) for (auto &v : adj[u]) if (dp[u] < dp[v] + 1) dp[u] = dp[v] + 1, par[u] = v;
+    if (dp[n] < 0) {cout << "IMPOSSIBLE\n"; return 0;}
+    int k = n;
+    stack <int> st;
+    while (k != 1) st.emplace(k), k = par[k];
+    st.emplace(1);
+    cout << st.size() << '\n';
+    while (!st.empty()) cout << st.top() << ' ', st.pop();
+    cout << '\n';
 }

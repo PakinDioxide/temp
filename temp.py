@@ -1,13 +1,26 @@
-import cmath
-gol = ((1 + cmath.sqrt(5))/2).real
-def poww(a, b):
-    if b == 0: return 1
-    k = poww(a, b//2)
-    k *= k
-    if b % 2 == 1: k *= a
-    return k
+import webbrowser
+import time
+import psutil
 
-def fibo(n):
-    return round((poww(gol, n)/cmath.sqrt(5)).real)
+BASE_URL = "https://toi-coding.informatics.buu.ac.th/00-pre-toi/tasks/A3-{}/submissions"
 
-for i in range(101): print(fibo(i))
+# Loop through task numbers from 001 to 040
+for i in range(1, 26):
+    task_id = f"{i:03}"  # Format numbers as 001, 002, ..., 040
+    url = BASE_URL.format(task_id)
+    
+    print(f"Opening: {url}")
+    webbrowser.open(url)
+    
+    # Wait for 5 seconds
+    time.sleep(0.5)
+
+# # Find and close the browser process
+# BROWSERS = ["chrome", "firefox", "msedge", "brave", "safari"]
+
+# for proc in psutil.process_iter(attrs=["pid", "name"]):
+#     try:
+#         if any(browser in proc.info["name"].lower() for browser in BROWSERS):
+#             proc.terminate()
+#     except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+#         pass

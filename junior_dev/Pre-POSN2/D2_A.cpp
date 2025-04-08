@@ -21,7 +21,7 @@ int main() {
         int u, v, c; ll w;
         cin >> u >> v >> w >> c;
         adj[u].emplace_back(v, w, c);
-        adj[v].emplace_back(u, w, c);
+        // adj[v].emplace_back(u, w, c);
     }
     for (int i = 1; i < k; i++) cin >> p[i];
     memset(sell, 0, sizeof(sell));

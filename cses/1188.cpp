@@ -1,6 +1,6 @@
 /*
     author  : PakinDioxide
-    created : 25/03/2025 14:56
+    created : 07/04/2025 19:40
     task    : 1188
 */
 #include <bits/stdc++.h>
@@ -10,64 +10,46 @@ using namespace std;
 
 int main() {
     ios::sync_with_stdio(0), cin.tie(0);
-    string s;
-    cin >> s;
-    set <pair <int, int>> st;
-    s = '#' + s;
-    int n = s.size();
-    for (int i = 1; i <= n; i++) {
-        if (s[i] != s[i-1]) st.emplace(i, i);
-        else {
-            auto [x, y] = *prev(st.end());
-            st.erase(prev(st.end()));
-            st.emplace(x, i);
-        }
-    }
-    for (auto &[x, y] : st) cout << x << ' ' << y << '\n';
+    string a;
+    cin >> a;
+    int n = a.size();
+    a = " " + a;
+    set <int> s;
+    multiset <int> ans;
+    for (int i = 1; i <= n; i++) if (a[i] != a[i-1]) s.emplace(i);
+    s.emplace(0);
+    s.emplace(n+1);
+    auto it = next(s.begin());
+    while (next(it) != s.end()) ans.emplace(*next(it) - *it), it++;
     int q;
     cin >> q;
     while (q--) {
-        int idx;
-        cin >> idx;
-        auto it = st.lower_bound(make_pair(idx, idx));
-        if ((*it).first == idx && (*it).second == idx) {
-
-        } else if ((*it).first == idx) {
-            if (it == st.begin()) {
-                auto [x, y] = *it;
-                st.erase(it);
-                st.emplace(idx, idx);
-                st.emplace(idx+1, y);
-            } else {
-                auto itp = prev(it);
-                auto [x, y] = *it;
-                auto [xx, yy] = *itp;
-                st.erase(it);
-                st.erase(itp);
-                st.emplace(xx, yy+1);
-                st.emplace(x+1, y);
-            }
-        } else if ((*it).second == idx) {
-            if (it == prev(st.end())) {
-                auto [x, y] = *it;
-                st.erase(it);
-                st.emplace(x, idx-1);
-                st.emplace(idx, idx);
-            } else {
-                auto itp = prev(it);
-                auto [x, y] = *it;
-                auto [xx, yy] = *itp;
-                st.erase(it);
-                st.erase(itp);
-                st.emplace(xx, yy+1);
-                st.emplace(x+1, y);
-            }
-        } else {
-            auto [x, y] = *it;
-            st.erase(it);
-            st.emplace(x, idx-1);
-            st.emplace(idx, idx);
-            st.emplace(idx+1, y);
+        int x;
+        cin >> x;
+        it = prev(s.upper_bound(x));
+        int sz = *next(it) - *it;
+        if (*it == x && *next(it) == x+1) {
+            s.erase(next(it));
+            s.erase(it);
+            s.emplace(1);
+            s.emplace(n+1);
+            ans.erase(sz);
+            it = prev(s.upper_bound(x));
+            ans.emplace(*next(it) - *it);
+        } else if (*it == x) {
+            s.erase(*it);
+            s.emplace(x+1);
+            s.emplace(1);
+            s.emplace(n+1);
+            ans.erase(sz);
+            ans.emplace(*next(it) - *it);
+        } else if (*next(it) == x+1) {
+            s.erase(next(it));
+            s.emplace(x);
+            s.emplace(1);
+            s.emplace(n+1);
+            ans.erase(sz);
+            
         }
     }
 }

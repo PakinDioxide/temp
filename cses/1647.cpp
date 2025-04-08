@@ -1,40 +1,31 @@
+/*
+    author  : PakinDioxide
+    created : 08/04/2025 01:45
+    task    : 1647
+*/
 #include <bits/stdc++.h>
+#define ll long long
 
 using namespace std;
 
-int seg[1000000], n, q, a[1000000];
-
-void build(int node, int l, int r) {
-    if (l == r) {seg[node] = a[l]; return;}
-    int mid = (l+r)/2;
-    build(node*2+1, l, mid);
-    build(node*2+2, mid+1, r);
-    seg[node] = min(seg[node*2+1], seg[node*2+2]);
-}
-
-void upd(int node, int l, int r, int x, int y) {
-    if (l == r) {seg[node] = y; return;}
-    int mid = (l+r)/2;
-    if (x <= mid) upd(node*2+1, l, mid, x, y);
-    else upd(node*2+2, mid+1, r, x, y);
-    seg[node] = min(seg[node*2+1], seg[node*2+2]);
-}
-
-int qr(int node, int l, int r, int x, int y) {
-    if (x <= l && r <= y) return seg[node];
-    int ans = INT_MAX, mid = (l+r)/2;
-    if (x <= mid) ans = min(ans, qr(node*2+1, l, mid, x, y));
-    if (y > mid) ans = min(ans, qr(node*2+2, mid+1, r, x, y));
-    return ans;
-}
+const int mxN = 5e5+5;
+int n, q, dp[20][mxN];
 
 int main() {
-    scanf("%d %d", &n, &q);
-    for (int i = 1; i <= n; i++) scanf("%d", &a[i]);
-    build(0, 1, n);
+    ios::sync_with_stdio(0), cin.tie(0);
+    cin >> n >> q;
+    for (int i = 0; i < n; i++) cin >> dp[0][i];
+    for (int i = 1; i < 20; i++) for (int j = 0; j + (1 << i) <= n; j++) dp[i][j] = min(dp[i-1][j], dp[i-1][j + (1 << (i-1))]);
     while (q--) {
-        int y, z;
-        scanf("%d %d", &y, &z);
-        printf("%d\n", qr(0, 1, n, y, z));
+        int l, r;
+        cin >> l >> r;
+        l--;
+        int d = r-l, ans = INT_MAX;
+        for (int i = 0; i < 20; i++) if (d & (1 << i)) ans = min(ans, dp[i][l]), l += (1 << i);
+        cout << ans << '\n';
     }
 }
+
+/*
+    https://cp-algorithms.com/data_structures/sparse-table.html
+*/
