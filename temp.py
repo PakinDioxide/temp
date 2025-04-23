@@ -1,26 +1,19 @@
-import webbrowser
-import time
-import psutil
+def ternary_search_unimodal(arr):
+    low = 0
+    high = len(arr) - 1
 
-BASE_URL = "https://toi-coding.informatics.buu.ac.th/00-pre-toi/tasks/A3-{}/submissions"
+    while low < high:
+        mid1 = low + (high - low) // 3
+        mid2 = high - (high - low) // 3
 
-# Loop through task numbers from 001 to 040
-for i in range(1, 26):
-    task_id = f"{i:03}"  # Format numbers as 001, 002, ..., 040
-    url = BASE_URL.format(task_id)
-    
-    print(f"Opening: {url}")
-    webbrowser.open(url)
-    
-    # Wait for 5 seconds
-    time.sleep(0.5)
+        if arr[mid1] < arr[mid2]:
+            low = mid1 + 1
+        else:
+            high = mid2 - 1
 
-# # Find and close the browser process
-# BROWSERS = ["chrome", "firefox", "msedge", "brave", "safari"]
+    return arr[low]  # or return low for the index
 
-# for proc in psutil.process_iter(attrs=["pid", "name"]):
-#     try:
-#         if any(browser in proc.info["name"].lower() for browser in BROWSERS):
-#             proc.terminate()
-#     except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
-#         pass
+# Example usage:
+arr = [90, 8, 8, 8, 8, 3, 3, 1]
+peak = ternary_search_unimodal(arr)
+print(peak)  # Output: 8

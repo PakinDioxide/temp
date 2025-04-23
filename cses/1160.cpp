@@ -1,54 +1,56 @@
+/*
+    author  : PakinDioxide
+    created : 17/04/2025 18:42
+    task    : 1160
+*/
 #include <bits/stdc++.h>
+#define ll long long
 
 using namespace std;
 
-int n, q, adj[200005], deg[200005], cyc[200005], cyci = 0, vis[200005], cycidx[200005], jump[32][200005], cycsz[200005], kki = 1, indeg[200005];
+const int mxN = 2e5+5;
 
+int n, q, par[mxN], vis[mxN], dep[mxN], id[mxN], cyc[mxN], onst[mxN], cyccnt[mxN], idx = 0, dp[20][mxN];
+
+int solve() {
+    int x, y;
+    cin >> x >> y;
+    if (cyc[x] != cyc[y] || dep[y] > dep[x]) return -1;
+    int k = dep[x] - dep[y];
+    for (int i = 0; i < 20; i++) if (k & (1 << i)) x = dp[i][x];
+    if (dep[x] != 0 && x != y) return -1;
+    return k + (id[x] - id[y] < 0 ? id[x] - id[y] + cyccnt[cyc[x]] : id[x] - id[y]);
+}
 
 int main() {
     ios::sync_with_stdio(0), cin.tie(0);
     cin >> n >> q;
-    for (int i = 1; i <= n; i++) cin >> adj[i], indeg[adj[i]]++, jump[0][i] = adj[i];
-    for (int i = 1; i < 32; i++) for (int j = 1; j <= n; j++) jump[i][j] = jump[i-1][jump[i-1][j]];
-    for (int i = 1; i <= n; i++) {
-        if (vis[i]) continue;
-        cyci++;
-        stack <int> cc, ccc;
+    for (int i = 1; i <= n; i++) cin >> par[i];
+    for (int i = 1; i <= n; i++) if (!vis[i]) {
         int k = i;
-        while (!vis[k]) {
-            cyc[k] = cyci;
-            cc.push(k);
-            vis[k] = 1;
-            k = adj[k];
-        }
-        int cyct, idx = 1;
-        if (cyc[k] == cyci) {
-            cyct = cyci;
-            while (cc.top() != k) ccc.push(cc.top()), cc.pop(), cycsz[cyct]++;
-            cycsz[cyct]++;
-            cc.pop();
-        } else {
-            cyct = cyc[k];
-        }
-        while (!ccc.empty()) cycidx[ccc.top()] = idx++, ccc.pop();
-        while (!cc.empty()) {
-            cycidx[cc.top()] = 0;
-            cyc[cc.top()] = cyct;
-            deg[cc.top()] = deg[k] + 1;
-            k = cc.top();
-            cc.pop();
-        }
+        stack <int> st;
+        while (!vis[k]) vis[k] = 1, st.emplace(k), onst[k] = 1, k = par[k];
+        int cnt = 0;
+        if (!cyc[k]) {++idx; while (st.top() != k) cyccnt[idx]++, id[st.top()] = ++cnt, cyc[st.top()] = idx, st.pop(); cyccnt[idx]++, id[st.top()] = ++cnt, cyc[st.top()] = idx, st.pop();}
+        while (!st.empty()) id[st.top()] = -1, dep[st.top()] = dep[k] + 1, cyc[st.top()] = cyc[k], k = st.top(), st.pop();
     }
-    while (q--) {
-        int u, v;
-        cin >> u >> v;
-        if (cyc[u] != cyc[v] || deg[v] > deg[u]) {cout << -1 << '\n'; continue;}
-        if (deg[v] > 0) {
-            int k = u, jj = deg[u] - deg[v];
-            for (int i = 0; i < 32; i++) if (jj & (1 << i)) k = jump[i][k];
-            if (k != v) {cout << -1 << '\n'; continue;}
-        }
-        int ans = deg[u] - deg[v] + (cycidx[v] - cycidx[u] < 0 ? cycidx[v] - cycidx[u] + cycsz[cyc[v]] : cycidx[v] - cycidx[u]);
-        cout << ans << '\n';
-    }
+    for (int i = 1; i <= n; i++) dp[0][i] = par[i];
+    for (int i = 1; i < 20; i++) for (int j = 1; j <= n; j++) dp[i][j] = dp[i-1][dp[i-1][j]];
+    while (q--) cout << solve() << '\n';
 }
+
+/*
+it will always lead to a cycle
+
+first, we check if it is in the same connected componet
+
+then we check the depth
+
+we binary jump dep[a] - dep[b] times
+
+if dep[a] != 0 and a != b return -1
+
+else, we are in the cycle now
+
+we mark the id in each cycle
+*/
