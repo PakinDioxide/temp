@@ -1,6 +1,6 @@
 /*
     author  : PakinDioxide
-    created : 29/03/2025 01:59
+    created : 25/04/2025 20:25
     task    : JOI19_ho_t2
 */
 #include <bits/stdc++.h>
@@ -10,26 +10,20 @@ using namespace std;
 
 int main() {
     ios::sync_with_stdio(0), cin.tie(0);
-    ll n, m;
+    int n, m;
     cin >> n >> m;
-    pair <ll, ll> a[n];
-    ll c[m];
-    for (auto &[y, x] : a) cin >> x >> y;
-    for (auto &e : c) cin >> e;
-    sort(a, a+n);
-    sort(c, c+m);
-    ll pos[n];
-    for (int i = 0; i < n; i++) pos[i] = lower_bound(c, c+m, a[i].second) - c;
-    vector <ll> d;
-    for (auto &e : pos) {
-        if (e == m) continue;
-        int psh = 0;
-        if (!d.empty() && d.back() < m-1 && d.back() + 1 > e) d.emplace_back(d.back() + 1), psh = 1;
-        int idx = lower_bound(d.begin(), d.end(), e) - d.begin();
-        if (idx != d.size()) {
-            while (d[idx] == e && idx+1 < d.size() && e+1 < m) e++, idx++;
-            d[idx] = e;
-        } else if (!psh) d.emplace_back(e);
+    pair <ll, ll> A[n];
+    ll a[n], b[m];
+    for (auto &[x, y] : A) cin >> y >> x;
+    for (auto &e : b) cin >> e;
+    sort(b, b+m);
+    sort(A, A+n);
+    for (int i = 0; i < n; i++) a[n-i-1] = A[i].second;
+    int ans = 0, idx = m-1; ll mn = LLONG_MAX;
+    for (auto &e : a) {
+        mn = min(mn, e);
+        if (mn <= b[idx]) idx--, mn = LLONG_MAX, ans++;
+        if (idx < 0) break;
     }
-    cout << d.size() << '\n';
+    cout << ans << '\n';
 }
