@@ -1,34 +1,33 @@
+/*
+    author  : PakinDioxide
+    created : 03/05/2025 09:52
+    task    : toi12_pipe
+*/
 #include <bits/stdc++.h>
+#define ll long long
+#pragma GCC optimize("Ofast")
+#pragma target ("avx2")
 
 using namespace std;
 
+const int mxN = 15000;
+
+int n, k, dist[mxN], ans = 0, x[mxN], y[mxN];
+vector <int> V;
+
 int main() {
     ios::sync_with_stdio(0), cin.tie(0);
-    int n, k;
     cin >> n >> k;
-    int a[n][2], vis[n];
-    vector <pair <int, int>> adj[n];
-    for (int i = 0; i < n; i++) {
-        cin >> a[i][0] >> a[i][1];
-        vis[i] = 0;
-        for (int j = 0; j < i; j++) adj[i].emplace_back(j, abs(a[i][0] - a[j][0]) + abs(a[i][1] - a[j][1])), adj[j].emplace_back(i, abs(a[i][0] - a[j][0]) + abs(a[i][1] - a[j][1]));
+    for (int i = 0; i < n; i++) dist[i] = INT_MAX - 1, cin >> x[i] >> y[i];
+    dist[0] = 0;
+    for (int t = 0; t < n; t++) {
+        int u = 0, mn = INT_MAX;
+        for (int i = 0; i < n; i++) if (dist[i] < mn) mn = dist[i], u = i;
+        V.emplace_back(mn);
+        dist[u] = INT_MAX;
+        for (int v = 0; v < n; v++) if (dist[v] != INT_MAX) dist[v] = min(dist[v], abs(x[u]-x[v]) + abs(y[u] - y[v]));
     }
-    priority_queue <pair <int, int>> q;
-    q.emplace(0, 0);
-    vector <int> ans;
-    while (!q.empty() && ans.size() < n-1) {
-        auto [w, u] = q.top();
-        q.pop();
-        w=-w;
-        if (vis[u]) continue;
-        vis[u] = 1;
-        if (w > 0) ans.push_back(w);
-        for (auto [v, ww] : adj[u]) {
-            if (!vis[v]) q.emplace(-ww, v);
-        }
-    }
-    sort(ans.begin(), ans.end());
-    int mst = 0;
-    for (int i = 0; i < n-k; i++) mst += ans[i];
-    cout << mst << '\n';
+    sort(V.begin(), V.end());
+    for (int i = 1; i <= n-k; i++) ans += V[i];
+    cout << ans << '\n';
 }

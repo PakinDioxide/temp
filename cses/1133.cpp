@@ -1,6 +1,6 @@
 /*
     author  : PakinDioxide
-    created : 12/03/2025 17:10
+    created : 03/05/2025 21:34
     task    : 1133
 */
 #include <bits/stdc++.h>
@@ -8,29 +8,33 @@
 
 using namespace std;
 
-vector <int> adj[200005];
-ll dep[200005], dp[200005], par[200005], cnt[200005];
+const int mxN = 2e5+5;
 
-void dfs(int u, int p) {
-    dp[u] = 0;
+ll n, ans[mxN], dp[mxN], cnt[mxN];
+vector <int> adj[mxN];
+
+void dfs1(int u, int p) {
     cnt[u] = 1;
-    for (int v : adj[u]) {
-        if (v == p) continue;
-        dep[v] = dep[u] + 1;
-        if (u == 1) par[v] = v;
-        else par[v] = par[u];
-        dfs(v, u);
+    for (auto v : adj[u]) if (v != p) {
+        dfs1(v, u);
         dp[u] += dp[v] + cnt[v];
         cnt[u] += cnt[v];
     }
 }
 
+void dfs2(int u, int p, ll up) {
+    ans[u] = dp[u] + up;
+    for (auto v : adj[u]) if (v != p) {
+        dfs2(v, u, ans[u] - (dp[v] + cnt[v]) + (n - cnt[v]));
+    }
+}
+
 int main() {
     ios::sync_with_stdio(0), cin.tie(0);
-    int n;
     cin >> n;
-    for (int i = 1; i < n; i++) {int u, v; cin >> u >> v, adj[u].push_back(v), adj[v].push_back(u);}
-    dfs(1, 0);
-    cout << dp[1] << ' ';
-    for (int i = 2; i <= n; i++) cout << dp[1] - dp[i] + 
+    for (int i = 1, u, v; i < n; i++) cin >> u >> v, adj[u].emplace_back(v), adj[v].emplace_back(u);
+    dfs1(1, 1);
+    dfs2(1, 1, 0);
+    for (int i = 1; i <= n; i++) cout << ans[i] << ' ';
+    cout << '\n';
 }

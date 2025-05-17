@@ -53,23 +53,15 @@ void solve() {
         cin >> sx >> sy >> ex >> ey;
         ll mn = calc(sx, sy, ex, ey);
         if (k == 0) {cout << mn << '\n'; continue;}
-        vector <pair <int, int>> v1;
-
-        // put in a map
-        for (int i = 1; i <= idx; i++) v1.emplace_back(calc(sx, sy, mp2[i].first, mp2[i].second), i);
-        sort(v1.begin(), v1.end());
-        queue <pair <int, int>> q;
-        vector <int> vis(idx+1);
-        int id = 1;
-        q.emplace(v1[0].first, v1[0].second);
+        deque <pair <int, int>> q;
+        vector <int> dis(idx+1, INT_MAX);
+        // do a 0/1 bfs
+        q.emplace(0, 1);
+        dis[1] = 0;
         while (!q.empty()) {
             int w, u;
             tie(w, u) = q.front();
-            vis[u] = 1;
-            q.pop();
-            mn = min(mn, w+calc(mp2[u].first, mp2[u].second, ex, ey));
-            if (id < v1.size() && v1[id].first <= w) {if (!vis[v1[id].second]) q.emplace(v1[id].first, v1[id].second); id++;}
-            for (auto v : adj[u]) if (!vis[v]) q.emplace(w+1, v);
+            if (dis[u] != w) q.pop();
         }
         cout << mn << '\n';
     }
