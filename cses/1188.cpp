@@ -1,6 +1,6 @@
 /*
     author  : PakinDioxide
-    created : 07/04/2025 19:40
+    created : 20/05/2025 00:15
     task    : 1188
 */
 #include <bits/stdc++.h>
@@ -8,48 +8,46 @@
 
 using namespace std;
 
+const ll mxN = 2e5+5;
+
+struct T {
+    ll vL, vR, L, R, M, S;
+};
+
+int n, q;
+string s;
+T seg[4*mxN];
+
+void mg(int p, int u, int v) {
+    seg[p].vL = seg[u].vL;
+    seg[p].vR = seg[v].vR;
+    seg[p].L = max(seg[u].L, (seg[u].L == seg[u].S && seg[u].vR == seg[v].vL ? seg[u].L + seg[v].L : 0));
+    seg[p].R = max(seg[v].R, (seg[v].R == seg[v].S && seg[u].vR == seg[v].vL ? seg[v].R + seg[u].R : 0));
+    seg[p].M = max({seg[p].L, seg[p].R, seg[u].M, seg[v].M, (seg[u].vR == seg[v].vL ? seg[u].R + seg[v].L : 0)});
+    seg[p].S = seg[u].S + seg[v].S;
+}
+
+void upd(int l, int r, int idx, ll x, int node) {
+    if (l == r) seg[node] = {x, x, 1, 1, 1, 1};
+    else {
+        int mid = l + (r-l)/2;
+        if (mid >= idx) upd(l, mid, idx, x, node<<1);
+        else upd(mid+1, r, idx, x, node<<1|1);
+        mg(node, node<<1, node<<1|1);
+    }
+}
+
 int main() {
     ios::sync_with_stdio(0), cin.tie(0);
-    string a;
-    cin >> a;
-    int n = a.size();
-    a = " " + a;
-    set <int> s;
-    multiset <int> ans;
-    for (int i = 1; i <= n; i++) if (a[i] != a[i-1]) s.emplace(i);
-    s.emplace(0);
-    s.emplace(n+1);
-    auto it = next(s.begin());
-    while (next(it) != s.end()) ans.emplace(*next(it) - *it), it++;
-    int q;
+    cin >> s;
+    n = s.size();
+    for (int i = 0; i < n; i++) s[i] = (s[i] == '1'), upd(0, n-1, i, s[i], 1);
     cin >> q;
     while (q--) {
-        int x;
-        cin >> x;
-        it = prev(s.upper_bound(x));
-        int sz = *next(it) - *it;
-        if (*it == x && *next(it) == x+1) {
-            s.erase(next(it));
-            s.erase(it);
-            s.emplace(1);
-            s.emplace(n+1);
-            ans.erase(sz);
-            it = prev(s.upper_bound(x));
-            ans.emplace(*next(it) - *it);
-        } else if (*it == x) {
-            s.erase(*it);
-            s.emplace(x+1);
-            s.emplace(1);
-            s.emplace(n+1);
-            ans.erase(sz);
-            ans.emplace(*next(it) - *it);
-        } else if (*next(it) == x+1) {
-            s.erase(next(it));
-            s.emplace(x);
-            s.emplace(1);
-            s.emplace(n+1);
-            ans.erase(sz);
-            
-        }
+        int idx; cin >> idx; idx--;
+        s[idx] ^= 1;
+        upd(0, n-1, idx, s[idx], 1);
+        cout << seg[1].M << ' ';
     }
+    cout << '\n';
 }
