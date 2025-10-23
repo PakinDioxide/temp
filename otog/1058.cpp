@@ -1,6 +1,6 @@
 /*
     author  : PakinDioxide
-    created : 17/04/2025 15:50
+    created : 13/07/2025 23:36
     task    : 1058
 */
 #include <bits/stdc++.h>
@@ -8,45 +8,44 @@
 
 using namespace std;
 
-const ll mxN = 2e5+5;
+const int mxN = 2e5+5;
 
-ll n, q, w[mxN], p[mxN], c[mxN], cb[mxN];
+int n, q, sz = 0, it = 0;
+ll w[mxN], c[mxN], p[mxN], ans[mxN];
+vector <tuple <int, int, int, int>> Q;
+deque <int> cht;
 
 int main() {
     ios::sync_with_stdio(0), cin.tie(0);
+    int n, q;
     cin >> n >> q;
-    w[0] = 0, p[0] = 0;
-    for (int i = 0; i < n-1; i++) cin >> w[i], p[i+1] = w[i] + p[i];
-    for (int i = 0; i < n; i++) cin >> c[i];
-    for (int i = n-1; i >= 0; i--) cb[i] = cb[i+1] + w[i] * c[i+1];
-    auto calc = [&] (ll k, ll x, ll y) { return cb[k] - cb[x] + c[k] * (p[y] - p[k]); };
-    while (q--) {
-        int x, y;
-        cin >> x >> y;
-        int l = 0, r = min(x, y);
-        while (l < r) {
-            int m1 = l + (r-l)/3;
-            int m2 = r - (r-l)/3;
-            if (calc(m1, x, y) > calc(m2, x, y)) l = m1+1;
-            else r = m2-1;
+    for (int i = 2; i <= n; i++) cin >> w[i], w[i] += w[i-1];
+    for (int i = 1; i <= n; i++) cin >> c[i], p[i] = p[i-1] + c[i] * (w[i] - w[i-1]);
+    for (int i = 0; i < q; i++) { int x, y; cin >> x >> y; x++, y++; Q.emplace_back(min(x, y), x, y, i); }
+    sort(Q.begin(), Q.end());
+    auto calc = [&] (ll x, int j) { return -c[j]*x + (-p[j] - c[j]*w[j]); };
+    auto m = [&] (int x, int y) { return (double) (calc(0, x) - calc(0, y)) / ((-c[y]) - (-c[x])); };
+    for (int i = 1; i <= n; i++) {
+        while (sz > 0 && (-c[cht[sz-1]]) == (-c[i]) && calc(0, cht[sz-1]) >= calc(0, i)) cht.pop_back(), sz--;
+        while (sz > 1 && m(cht[sz-1], i) <= m(cht[sz-1], cht[sz-2])) cht.pop_back(), sz--;
+        cht.emplace_back(i), sz++;
+        while (it < q && get<0>(Q[it]) == i) {
+            auto [tmp, x, y, id] = Q[it++];
+            int l = 0, r = sz-2, idx = sz-1;
+            while (l <= r) {
+                int mid = l + (r-l)/2;
+                if (m(cht[mid], cht[mid+1]) <= -w[y]) l = mid+1;
+                else r = mid-1, idx = mid;
+            }
+            ans[id] = p[x] + calc(-w[y], cht[idx]);
         }
-        cout << calc(l, x, y) << '\n';
     }
+    for (int i = 0; i < q; i++) cout << ans[i] << '\n';
 }
 
 /*
-def ternary_search_unimodal(arr):
-    low = 0
-    high = len(arr) - 1
-
-    while low < high:
-        mid1 = low + (high - low) // 3
-        mid2 = high - (high - low) // 3
-
-        if arr[mid1] < arr[mid2]:
-            low = mid1 + 1
-        else:
-            high = mid2 - 1
-
-    return arr[low]  # or return low for the index
+start at x, want to arrive at y
+p[i] = p[i-1] + c[i] * w[i] (dist from i-1 to i)
+ans = min j <= min(x, y) (p[x] - p[j] + c[j]*(w[y] - w[j]))
+    = p[x] + min (c[j]*(w[y]) + (-p[j] - c[j]*w[j]))
 */
