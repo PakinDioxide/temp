@@ -1,46 +1,41 @@
-/*
-    author  : PakinDioxide
-    created : 
-    task    : 
-*/
 #include <bits/stdc++.h>
 #define ll long long
-#define db double
-#define ld long double
 
 using namespace std;
 
+const int mxN = 2e5+5;
+
+int par[mxN];
+vector <pair <int, ll>> adj[mxN];
+pair <ll, ll> x[2][mxN];
+
+int fi(int x) {
+    if (x == par[x]) return x;
+    return par[x] = fi(par[x]);
+}
+
+void dfs(int u, int p, int k, ll mn, ll mx) {
+    x[k][u] = make_pair(mn, mx);
+    for (auto [v, w] : adj[u]) if (v != p) dfs(v, u, k, min(mn, w), max(mx, w));
+}
+
 void solve() {
     int n, m; cin >> n >> m;
+    iota(par, par+n+1, 0);
+    for (int i = 1; i <= n; i++) adj[i].clear();
     vector <tuple <ll, int, int>> E(m);
     for (auto &[w, u, v] : E) cin >> u >> v >> w;
     sort(E.begin(), E.end());
-    int par[n+1]; iota(par, par+n+1, 0);
-    vector <pair <int, ll>> adj[n+1];
-    function <int(int)> fi = [&] (int x) {
-        if (x == par[x]) return x;
-        return par[x] = fi(par[x]);
-    };
-    int cnt = 0;
+    int c = 0;
     for (auto &[w, u, v] : E) {
-        if (fi(u) == fi(v)) continue;
-        par[fi(u)] = fi(v);
-        adj[u].emplace_back(v, w);
-        adj[v].emplace_back(u, w);
-        if (cnt == n-1) break;
+        if (fi(u) != fi(v)) par[fi(u)] = fi(v), c++, adj[u].emplace_back(v, w), adj[v].emplace_back(u, w);
+        if (c == n-1) break;
     }
-    pair <ll, ll> dp[n+1];
-    dp[1] = make_pair(LLONG_MAX, LLONG_MIN);
-    function <void(int, int)> dfs = [&] (int u, int p) {
-        for (auto [v, w] : adj[u]) if (v != p) {
-            dp[v] = make_pair(min(dp[u].first, w), max(dp[u].second, w));
-            dfs(v, u);
-        }
-    };
-    dfs(1, 1);
-    ll mn = LLONG_MAX;
-    for (int i = 2; i <= n; i++) mn = min(mn, min(dp[i].first, dp[n].first) + max(dp[i].second, dp[n].second));
-    cout << mn << '\n';
+    dfs(1, 1, 0, LLONG_MAX, LLONG_MIN);
+    dfs(n, n, 1, LLONG_MAX, LLONG_MIN);
+    ll ans = x[0][n].first + x[0][n].second;
+    for (int i = 2; i < n; i++) ans = min(ans, min(x[0][i].first, x[1][i].first) + max(x[0][i].second, x[1][i].second));
+    cout << ans << '\n';
 }
 
 int main() {
@@ -48,4 +43,3 @@ int main() {
     int t; cin >> t;
     while (t--) solve();
 }
-
