@@ -17,7 +17,7 @@ struct Wavelet {
         l->build(L, b-1);
         r->build(R, b-1);
     }
-    int qr(int l, int r, int k, int b) { // [l, r), 0-index
+    int qr(int l, int r, int k, int b) { // [l, r), k, 0-index
         if (b == 0 || p.empty()) return 0;
         int pr = (r > 0 ? p[r-1] : 0);
         int pl = (l > 0 ? p[l-1] : 0);

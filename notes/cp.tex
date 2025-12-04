@@ -84,8 +84,60 @@
 
 % ---------------------
 
-\section{Range Query}
-\subsection{Segment Tree}
+\section{Range Queries}
+\subsection{Square Root Decomposition}
+\subsubsection{Blocking}
+\subsubsection{Combining}
+\subsubsection{Batching}
+\subsubsection{Mo's Algorithm}
+
+\section{Data Structures}
+\subsection{Wavelet Tree}
+
+Wavelet Tree is a Data Structure mainly for finding the $k$'th minimum value in some range $[l, r]$. The tree is built dynamically meaning that we will use pointers.
+
+\begin{lstlisting}
+struct Wavelet {
+    vector <int> p;
+    Wavelet *l, *r;
+};
+\end{lstlisting}
+
+When we build the tree, we check if the $b$'th bits is 0 or 1. If it's 0, we put that element into the left side. Otherwise, we put in the right side. The vector \texttt{p} is a prefix sum array counting number of elements in the left side.
+
+\begin{lstlisting}
+void build(const vector <int> &A, int b) {
+    if (b == 0 || A.empty()) return;
+    l = new Wavelet();
+    r = new Wavelet();
+    int c = 0;
+    vector <int> L, R;
+    for (int x : A) {
+        if (x & (1 << (b-1))) R.emplace_back(x);
+        else L.emplace_back(x), c++;
+        p.emplace_back(c);
+    }
+    l->build(L, b-1);
+    r->build(R, b-1);
+}
+\end{lstlisting}
+
+When we query, we count the number of elements in the left side in range $l$ to $r$. If the number of elements in the left side is more than or equal to $k$, we recursive to the right side. Otherwise we go to the right side. We have to change the value of $l, r, k$ too when moving down to the right side.
+
+\begin{lstlisting}
+int qr(int l, int r, int k, int b) { // [l, r), k, 0-index
+    if (b == 0 || p.empty()) return 0;
+    int pr = (r > 0 ? p[r-1] : 0);
+    int pl = (l > 0 ? p[l-1] : 0);
+    int cnt = pr - pl;
+    if (k < cnt) return this->l->qr(pl, pr, k, b-1);
+    else return (1 << (b-1)) + this->r->qr(l-pl, r-pr, k-cnt, b-1);
+}
+\end{lstlisting}
+
+Note that these functions are inside the \texttt{Wavelet} struct.
+
+\break
 
 \section{Dynamic Programming Optimization}
 \subsection{Convex Hull Trick}
@@ -227,5 +279,13 @@ void ctd(int u, int p) {
     for (auto v : adj[C]) if (!vis[v]) ctd(v, C);
 }
 \end{lstlisting}
+
+\section{Miscellaneous}
+
+\subsection{Bitset}
+
+Bitset or \texttt{std::bitset} is a boolean array datastructure, which can do operations like normal bits such as AND, OR, XOR, etc. It is faster than normal array about x32-64.
+
+idk, not finnished...
 
 \end{document}
