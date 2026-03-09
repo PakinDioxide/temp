@@ -1,0 +1,77 @@
+combo.cpp: In function ‘std::string guess_sequence(int)’:
+combo.cpp:9:9: warning: init-statement in selection statements only available with ‘-std=c++17’ or ‘-std=gnu++17’ [-Wc++17-extensions]
+    9 |     if (!(press("X")) v.emplace_back("X");
+      |         ^
+combo.cpp:9:22: error: expected ‘;’ before ‘v’
+    9 |     if (!(press("X")) v.emplace_back("X");
+      |                      ^~
+      |                      ;
+combo.cpp:9:9: warning: value computed is not used [-Wunused-value]
+    9 |     if (!(press("X")) v.emplace_back("X");
+      |         ^~~~~~~~~~~~~
+combo.cpp:10:5: error: expected primary-expression before ‘else’
+   10 |     else s = "X";
+      |     ^~~~
+combo.cpp:9:43: error: expected ‘)’ before ‘else’
+    9 |     if (!(press("X")) v.emplace_back("X");
+      |        ~                                  ^
+      |                                           )
+   10 |     else s = "X";
+      |     ~~~~                                   
+combo.cpp:11:9: warning: init-statement in selection statements only available with ‘-std=c++17’ or ‘-std=gnu++17’ [-Wc++17-extensions]
+   11 |     if (!(press("Y")) v.emplace_back("Y");
+      |         ^
+combo.cpp:11:22: error: expected ‘;’ before ‘v’
+   11 |     if (!(press("Y")) v.emplace_back("Y");
+      |                      ^~
+      |                      ;
+combo.cpp:11:9: warning: value computed is not used [-Wunused-value]
+   11 |     if (!(press("Y")) v.emplace_back("Y");
+      |         ^~~~~~~~~~~~~
+combo.cpp:12:5: error: expected primary-expression before ‘else’
+   12 |     else s = "Y";
+      |     ^~~~
+combo.cpp:11:43: error: expected ‘)’ before ‘else’
+   11 |     if (!(press("Y")) v.emplace_back("Y");
+      |        ~                                  ^
+      |                                           )
+   12 |     else s = "Y";
+      |     ~~~~                                   
+combo.cpp:13:9: warning: init-statement in selection statements only available with ‘-std=c++17’ or ‘-std=gnu++17’ [-Wc++17-extensions]
+   13 |     if (!(press("A")) v.emplace_back("A");
+      |         ^
+combo.cpp:13:22: error: expected ‘;’ before ‘v’
+   13 |     if (!(press("A")) v.emplace_back("A");
+      |                      ^~
+      |                      ;
+combo.cpp:13:9: warning: value computed is not used [-Wunused-value]
+   13 |     if (!(press("A")) v.emplace_back("A");
+      |         ^~~~~~~~~~~~~
+combo.cpp:14:5: error: expected primary-expression before ‘else’
+   14 |     else s = "A";
+      |     ^~~~
+combo.cpp:13:43: error: expected ‘)’ before ‘else’
+   13 |     if (!(press("A")) v.emplace_back("A");
+      |        ~                                  ^
+      |                                           )
+   14 |     else s = "A";
+      |     ~~~~                                   
+combo.cpp:15:9: warning: init-statement in selection statements only available with ‘-std=c++17’ or ‘-std=gnu++17’ [-Wc++17-extensions]
+   15 |     if (!(press("B")) v.emplace_back("B");
+      |         ^
+combo.cpp:15:22: error: expected ‘;’ before ‘v’
+   15 |     if (!(press("B")) v.emplace_back("B");
+      |                      ^~
+      |                      ;
+combo.cpp:15:9: warning: value computed is not used [-Wunused-value]
+   15 |     if (!(press("B")) v.emplace_back("B");
+      |         ^~~~~~~~~~~~~
+combo.cpp:16:5: error: expected primary-expression before ‘else’
+   16 |     else s = "B";
+      |     ^~~~
+combo.cpp:15:43: error: expected ‘)’ before ‘else’
+   15 |     if (!(press("B")) v.emplace_back("B");
+      |        ~                                  ^
+      |                                           )
+   16 |     else s = "B";
+      |     ~~~~                                   

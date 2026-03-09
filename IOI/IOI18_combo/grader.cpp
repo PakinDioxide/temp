@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <string>
 #include "combo.h"
+#include <bits/stdc++.h>
 
 namespace {
 
@@ -59,6 +60,7 @@ int main() {
 
   num_moves = 0;
   std::string answer = guess_sequence(N);
+  std::cout << answer << '\n';
   if (answer != S) {
     wrong_answer("wrong guess");
     exit(0);

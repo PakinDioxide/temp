@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2026/dev/Arch Linux) (preloaded format=xelatex 2025.11.29)  3 DEC 2025 18:50
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2026/dev/Arch Linux) (preloaded format=xelatex 2025.11.29)  19 DEC 2025 17:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**/home/cp/Desktop/temp/notes/cp
-(/home/cp/Desktop/temp/notes/cp.tex
+**/home/cp/temp/notes/cp
+(/home/cp/temp/notes/cp.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
 (/usr/share/texmf-dist/tex/latex/base/article.cls
@@ -407,26 +407,26 @@ File: l3backend-xetex.def 2024-05-08 L3 backend support: XeTeX
 ) (./cp.aux)
 \openout1 = `cp.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -462,7 +462,7 @@ LaTeX Font Info:    ... okay on input line 73.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring ON on input line 73.
+Package hyperref Info: Link coloring ON on input line 75.
 (./cp.out) (./cp.out)
 \@outlinefile=\write3
 \openout3 = `cp.out'.
@@ -471,33 +471,33 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count316
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 79.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 81.
  (/usr/share/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 79.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 81.
  (/usr/share/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 79.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 81.
  (/usr/share/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 79.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 81.
  (/usr/share/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 79.
+(Font)              <14.4> on input line 81.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 79.
+(Font)              <10> on input line 81.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 79.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 79.
+(Font)              <7> on input line 81.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 81.
  (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 79.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 81.
  (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
@@ -518,44 +518,57 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 
 
 [2]
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 99.
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 103.
  (/usr/share/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 
 [3]
-
-[4]
 File: assets/cht_max.jpg Graphic file (type bmp)
 <assets/cht_max.jpg>
 File: assets/cht_min.jpg Graphic file (type bmp)
 <assets/cht_min.jpg>
 
 
-[5]
+[4]
 File: assets/cht_qry.jpg Graphic file (type bmp)
 <assets/cht_qry.jpg>
+
+
+[5]
+File: assets/lichao_1.png Graphic file (type bmp)
+<assets/lichao_1.png>
+File: assets/lichao_2.png Graphic file (type bmp)
+<assets/lichao_2.png>
 
 
 [6]
 
 [7]
 
-[8] (./cp.aux)
+[8]
+
+[9]
+
+[10]
+
+[11]
+
+[12] (./cp.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `cp.out' has not changed.
-(rerunfilecheck)             Checksum: 6BFDAEA0CDECE1A1838042F7C2476CB4;2364.
+(rerunfilecheck)             Checksum: 5295CF5EC6D14D85ABC682C16F0144AF;2402.
  ) 
 Here is how much of TeX's memory you used:
- 14548 strings out of 475413
- 225596 string characters out of 5765575
- 949896 words of memory out of 5000000
- 37315 multiletter control sequences out of 15000+600000
+ 14650 strings out of 475413
+ 226820 string characters out of 5765575
+ 1057896 words of memory out of 5000000
+ 37414 multiletter control sequences out of 15000+600000
  614150 words of font info for 81 fonts, out of 8000000 for 9000
  264 hyphenation exceptions out of 8191
- 72i,7n,79p,563b,1100s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,7n,79p,555b,1100s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on cp.pdf (8 pages).
+Output written on cp.pdf (12 pages).
