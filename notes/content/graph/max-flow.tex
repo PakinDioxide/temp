@@ -1,0 +1,46 @@
+\subsection{Maximum Flow}
+
+\subsubsection{Edmonds-Karp}
+
+Edmonds-Karp is an algorithm to find maximum flow in $\mathcal{O}(VE^2)$. We will find the shortest path with BFS from source to sink, then update the capacity of the edge, and do this until we can't reach the sink by using only the edges with capacity more than zero.
+
+\begin{lstlisting}
+cin >> n >> m;
+while (m--) {
+    int u, v; ll w; cin >> u >> v >> w;
+    adj[u].emplace_back(v);
+    adj[v].emplace_back(u); // to undo a flow with reversed edge
+    cap[u][v] += w;
+}
+auto bfs = [&] () {
+    queue <int> q;
+    memset(vis, 0, sizeof(vis)), memset(par, 0, sizeof(par));
+    q.emplace(1), vis[1] = 1;
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        if (u == n) return 1;
+        for (int v : adj[u]) if (cap[u][v] > 0 && !vis[v]) vis[v] = 1, q.emplace(v), par[v] = u;
+    }
+    return 0;
+};
+ll ans = 0;
+while (bfs()) {
+    vector <int> v;
+    v.emplace_back(n);
+    ll mn = LLONG_MAX;
+    while (v.back() != 1) {
+        // get the bottleneck of the path
+        mn = min(mn, cap[par[v.back()]][v.back()]);
+        v.emplace_back(par[v.back()]);
+    }
+    for (int i = 0; i < v.size()-1; i++) {
+        // update the capacity of the edge
+        cap[v[i+1]][v[i]] -= mn;
+        cap[v[i]][v[i+1]] += mn; // to undo a flow
+    }
+    ans += mn;
+}
+cout << ans << '\n';
+\end{lstlisting}
+
+\break

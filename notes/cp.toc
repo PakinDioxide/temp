@@ -1,18 +1,55 @@
-\contentsline {section}{\numberline {1}Data Structures}{3}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Wavelet Tree}{3}{subsection.1.1}%
-\contentsline {section}{\numberline {2}Dynamic Programming Optimization}{4}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Convex Hull Trick}{4}{subsection.2.1}%
-\contentsline {subsubsection}{\numberline {2.1.1}Inserting}{4}{subsubsection.2.1.1}%
-\contentsline {subsubsection}{\numberline {2.1.2}Querying}{5}{subsubsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.2}Li-Chao Tree}{6}{subsection.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.1}Insertion}{6}{subsubsection.2.2.1}%
-\contentsline {subsubsection}{\numberline {2.2.2}Query}{7}{subsubsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.3}Divide and Conquer}{8}{subsection.2.3}%
-\contentsline {section}{\numberline {3}Tree Algorithms}{9}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Centroid Decomposition}{9}{subsection.3.1}%
-\contentsline {subsubsection}{\numberline {3.1.1}Centroid}{9}{subsubsection.3.1.1}%
-\contentsline {subsubsection}{\numberline {3.1.2}Centroid Decomposition}{9}{subsubsection.3.1.2}%
-\contentsline {section}{\numberline {4}Graph Algorithms}{11}{section.4}%
-\contentsline {subsection}{\numberline {4.1}DSU with Rollback}{11}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Maximum Flow}{12}{subsection.4.2}%
-\contentsline {subsubsection}{\numberline {4.2.1}Edmonds-Karp}{12}{subsubsection.4.2.1}%
+\contentsline {chapter}{\numberline {1}Data Structures and Algorithms}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Data Structures}{2}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Wavelet Tree}{2}{subsection.1.1.1}%
+\contentsline {section}{\numberline {1.2}Dynamic Programming Optimization}{4}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Convex Hull Trick}{4}{subsection.1.2.1}%
+\contentsline {subsubsection}{Inserting}{4}{section*.2}%
+\contentsline {subsubsection}{Querying}{5}{section*.4}%
+\contentsline {subsection}{\numberline {1.2.2}Li-Chao Tree}{6}{subsection.1.2.2}%
+\contentsline {subsubsection}{Insertion}{6}{section*.6}%
+\contentsline {subsubsection}{Query}{7}{section*.8}%
+\contentsline {subsection}{\numberline {1.2.3}Divide and Conquer}{8}{subsection.1.2.3}%
+\contentsline {section}{\numberline {1.3}Tree Algorithms}{9}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Centroid Decomposition}{9}{subsection.1.3.1}%
+\contentsline {subsubsection}{Centroid}{9}{section*.9}%
+\contentsline {subsubsection}{Centroid Decomposition}{9}{section*.10}%
+\contentsline {section}{\numberline {1.4}Miscellaneous}{11}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Subset Sum in $\mathcal {O}(N\log (N) + \frac {N\sqrt {N}}{64})$}{11}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Inverse Mod in $\mathcal {O}(n)$}{12}{subsection.1.4.2}%
+\contentsline {chapter}{\numberline {2}Problems}{13}{chapter.2}%
+\contentsline {section}{\numberline {2.1}APIO}{13}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}APIO 2023}{13}{subsection.2.1.1}%
+\contentsline {subsubsection}{APIO23\_cyberland - Cyberland}{13}{section*.11}%
+\contentsline {paragraph}{Statement}{13}{section*.12}%
+\contentsline {paragraph}{My Observation}{13}{section*.13}%
+\contentsline {paragraph}{Editorial}{14}{section*.14}%
+\contentsline {subsubsection}{APIO23\_sequence - Sequence}{14}{section*.15}%
+\contentsline {paragraph}{Statement}{14}{section*.16}%
+\contentsline {paragraph}{My Observation}{14}{section*.17}%
+\contentsline {paragraph}{Editorial}{14}{section*.18}%
+\contentsline {section}{\numberline {2.2}China Team Homework}{15}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}IOI 2026 China National Training Team Homework}{15}{subsection.2.2.1}%
+\contentsline {subsubsection}{QOJ833 Cells Blocking}{15}{section*.19}%
+\contentsline {paragraph}{Statement}{15}{section*.20}%
+\contentsline {paragraph}{Editorial}{15}{section*.21}%
+\contentsline {subsubsection}{QOJ837 Giant Penguin}{15}{section*.22}%
+\contentsline {paragraph}{Statement}{15}{section*.23}%
+\contentsline {paragraph}{Editorial}{15}{section*.24}%
+\contentsline {subsubsection}{QOJ856 Cactus}{16}{section*.25}%
+\contentsline {paragraph}{Statement}{16}{section*.26}%
+\contentsline {paragraph}{Editorial}{16}{section*.27}%
+\contentsline {subsubsection}{QOJ857 Social Distancing}{16}{section*.28}%
+\contentsline {paragraph}{Statement}{16}{section*.29}%
+\contentsline {paragraph}{Editorial}{17}{section*.30}%
+\contentsline {subsubsection}{QOJ862 Social Justice}{17}{section*.31}%
+\contentsline {paragraph}{Statement}{17}{section*.32}%
+\contentsline {paragraph}{Editorial}{17}{section*.33}%
+\contentsline {subsubsection}{QOJ962 Thanks to MikeMirzayanov}{17}{section*.34}%
+\contentsline {paragraph}{Statement}{17}{section*.35}%
+\contentsline {paragraph}{Editorial}{17}{section*.36}%
+\contentsline {subsubsection}{QOJ970 Best Subsequence}{18}{section*.37}%
+\contentsline {paragraph}{Statement}{18}{section*.38}%
+\contentsline {paragraph}{Editorial}{18}{section*.39}%
+\contentsline {subsubsection}{QOJ975 Game}{19}{section*.40}%
+\contentsline {paragraph}{Statement}{19}{section*.41}%
+\contentsline {paragraph}{Editorial}{19}{section*.42}%

@@ -1,0 +1,66 @@
+\subsection{APIO 2023}
+
+\subsubsection{APIO23\_cyberland - Cyberland}
+
+\problemmeta{03/11/2026}{97/100}{Shortest Path, Dijkstra}
+
+\paragraph{Statement}
+Given a weighted undirected graph of $n$ nodes and $m$ edges, $n, m \le 10^5$. Each node has an ability of one of three types: 
+\begin{enumerate}[nosep, leftmargin=3em]
+    \item \textbf{Type 0} : Reset the current cost to zero.
+    \item \textbf{Type 1} : Do nothing.
+    \item \textbf{Type 2} : Divide the total distance by 2.
+\end{enumerate}
+Find the minimum cost from node $0$ to node $H$. You can perform the "Type 2" operation at most $K \le 10^6$ times.
+
+\indent \begin{tabular}{ll}
+    \textbf{Subtask 1--7} & : $K \le 30$ (97 Points) \\
+    \textbf{Subtask 8}    & : $K \le 10^6$ (3 Points)
+\end{tabular}
+
+\paragraph{My Observation}
+This problem can be transformed into a "multi-source shortest path" problem where the sources are node $0$ and any nodes with ability Type 0. We can then perform DP on Dijkstra. However, this state-space approach ($N \times K$) only works for small values of $K$.
+
+\paragraph{Editorial}
+Moving from the 97-point solution to the 100-point solution involves a precision observation. We can prove that using $K = \min(K, 70)$ is sufficient to make the absolute error less than $10^{-7}$.
+
+\begin{itemize}[nosep]
+    \item Let the optimal solution use the Type 2 ability $V$ times, where $V \gg 70$.
+    \item Consider only the last 70 usages of the ability. Let $p$ be the first node that uses the ability in this truncated path.
+    \item The shortest path from $0$ to $p$ is at most $N \times \max(C)$.
+    \item By ignoring earlier divisions, the added cost is at most $\frac{N \times \max(C)}{2^{70}} \approx 0$.
+\end{itemize}
+
+\codelink{APIO/APIO23\_cyberland}
+
+\subsubsection{APIO23\_sequence - Sequence}
+
+\problemmeta{03/11/2026}{70/100}{Persistent Segment Tree, Two Pointers}
+
+\paragraph{Statement}
+
+Given an array $a$ size of $N$.
+Let $f(l, r, x)$ be the number of occurrence of $x$ in range $(l, r)$.
+For some range $(l, r)$, let the medians are $\lfloor \frac{l+r}{2} \rfloor, \lceil \frac{l+r}{2} \rceil$ indices after the array in that range is sorted.
+Find the maximum value of $f(l, r, x)$ when $x$ is one of the medians of the array in range $(l, r)$.
+
+\paragraph{My Observation}
+
+I did a binary search to find the maximum value, $x$. Then, iterate over $a$ to find that is it possible for value $a[i]$ to be the median, which appear at least $x$ time. We can do this by finding the left most index $j$ that number $a[i]$ appear $x$ times in the range $(i, j)$. Then we want to find that is it possible that $a[i]$ will be the median.
+\begin{enumerate}
+    \item Let $fx = \sum_{k=i}^{j}b[k]$, where $b[k] = \text{max}(-1, \text{min}(1, a[k] - a[i]))$.
+    \item Let $MX = \text{max}_{k=0}^{i-1}\left( \sum_{l=k}^{i-1}c[l]\right) + \text{max}_{k=j+1}^{N-1}\left( \sum_{l=j+1}^{k}c[l]\right)$, where $c[k] = (a[k] \geq a[i] \to 1, a[k] < a[i] \to -1)$
+    \item Let $MN = \text{min}_{k=0}^{i-1}\left( \sum_{l=k}^{i-1}d[l]\right) + \text{max}_{k=j+1}^{N-1}\left( \sum_{l=j+1}^{k}d[l]\right)$, where $d[k] = (a[k] > a[i] \to 1, a[k] \leq a[i] \to -1)$
+    \item Then $MX = MX + fx, MN = MN + fx$.
+    \item So, $a[i]$ will be able to be the median if $(mn, mx) \cap (-x, x) \neq \emptyset$.
+\end{enumerate}
+
+This solution is $\mathcal{O}(n\log^2(n))$, which got 70 points. Note that in step 1, 2, and 3, we can use persistent segment tree to handle these queries.
+
+\paragraph{Editorial}
+
+Transforming $\mathcal{O}(n\log^2(n))$ to $\mathcal{O}(n\log(n))$ is very easy.
+We just do a "two-pointers" over the same value instead of binary searching.
+
+
+\codelink{APIO/APIO23\_sequence}

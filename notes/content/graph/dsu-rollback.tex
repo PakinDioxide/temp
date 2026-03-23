@@ -1,0 +1,31 @@
+\subsection{DSU with Rollback}
+
+DSU with Rollback is like a normal DSU but after a change, we can undo it. We will maintain the value before changes in a vector, $(\text{idx}, \text{val}_\text{before})$. If we want to undo a change, we just set that value back from the back of the vector, then pop\_back() the vector.
+
+\begin{lstlisting}
+int par[mxN], sz[mxN];
+vector <pair <int, int>> rpar, rsz;
+
+int fi(int x) {
+    if (x == par[x]) return x;
+    else return fi(par[x]);
+}
+
+void mg(int u, int v) {
+    u = fi(u), v = fi(v);
+    if (sz[u] < sz[v]) swap(u, v);
+    rsz.emplace_back(u, sz[u]);
+    sz[u] += sz[v];
+    rpar.emplace_back(v, par[v]);
+    par[v] = u;
+}
+
+void rollback() {
+    sz[rsz.back().first] = rsz.back().second; rsz.pop_back();
+    par[rpar.back().first] = rpar.back().second; rpar.pop_back();
+}
+\end{lstlisting}
+
+Note that we do not use path compression because it would be slower and harder, updating multiple parents at a time.
+
+\break

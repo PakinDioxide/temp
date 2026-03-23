@@ -1,0 +1,25 @@
+\subsubsection{QOJ833 Cells Blocking}
+
+\problemmeta{03/10/2026}{}{Observation}
+
+\paragraph{Statement}
+Given a $n \times m$ grid, each is either a free cell or a blocked cell.
+Find number of ways to choose 2 different cells which block all path from $(0, 0)$ to $(n-1, m-1)$.
+
+\paragraph{Editorial}
+We know that all paths must be between the "left-most" path and the "right-most" path.
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Case 1: We only have to block one cell} 
+
+    If the left-most path intersects with the right-most path, it means all paths must pass through that cell.
+    In this case, we can block just that cell and any other arbitrary cell.
+
+    \item \textbf{Case 2: We need to block two cells}
+    
+    Now, we will block a cell along the "left-most" path.
+    Then find the new "left-most" path. We can do this by moving to the next cell in the same $i+j$ diagonal.
+    Then, count the number of intersections (excluding the cells from "Case 1").
+\end{itemize}
+
+\codelink{CNHW/2026/1.cpp}

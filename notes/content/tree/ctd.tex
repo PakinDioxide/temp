@@ -1,0 +1,57 @@
+\subsection{Centroid Decomposition}
+\subsubsection{Centroid}
+A centroid of a tree is defined as a node such that if removed, no connected component has  more than $\frac{N}{2}$ nodes.
+
+We can find a centroid in a tree by selecting an arbitrary node in the tree. Then loop through its children's subtree. If the size of a child's subtree is more than $\frac{N}{2}$, traverse down that node. Otherwise, if no child's subtree has size more than $\frac{N}{2}$, then that node is the centroid.
+
+\begin{lstlisting}
+void fsz(int u, int p) {
+    sz[u] = 1;
+    for (auto v : adj[u]) if (v != p) fsz(v, u), sz[u] += sz[v];
+}
+
+int ct(int u, int p) {
+    for (auto v : adj[u]) if (sz[v] * 2 > n) return ct(v, u);
+    return u;
+}
+\end{lstlisting}
+
+\noindent\textbf{Properties}
+\begin{enumerate}
+    \item If the centroid of a tree isn't unique, there are exactly two centroids which are adjacent. Removing the edge between them divides the tree into two connected components of the equal sizes.
+    \item When a leaf is added to or removed from a tree, the centroid changes by at most one node.
+    \item When two trees are connected, the centroid of the resulting tree lies on the path between the centroids of the original trees.
+\end{enumerate}
+
+\subsubsection{Centroid Decomposition}
+
+Centroid Decomposition is a divide-and-conquer technique for trees, which recursively splits the tree by removing its centroid. The resulting decomposition tree has a height of at most $\mathcal{O}(\log N)$.
+
+\noindent\textbf{Properties}
+\begin{enumerate}
+    \item The height of the decomposed tree is at most $\log{N}$
+    \item Every path between $u$ and $v$ can be decomposed into two parts: $u$ to $\text{lca}_{ctd}(u, v)$ and $\text{lca}_{ctd}(u, v)$ to $v$. We can use this property for querying and updating. In the \textbf{Xania and Tree} problem, we update and query by traversing up to the $\log{N}$ parents for each node.
+\end{enumerate}
+
+\begin{lstlisting}
+int fsz(int u, int p) {
+    sz[u] = 1;
+    for (auto v : adj[u]) if (v != p && !vis[v]) sz[u] += fsz(v, u);
+    return sz[u];
+}
+ 
+int ct(int u, int p, int tsz) {
+    for (auto v : adj[u]) if (v != p && !vis[v]) if (sz[v] * 2 > tsz) return ct(v, u, tsz);
+    return u;
+}
+ 
+void ctd(int u, int p) {
+    int C = ct(u, u, fsz(u, u));
+    vis[C] = 1;
+    if (p == -1) p = C;
+    par[C] = p;
+    for (auto v : adj[C]) if (!vis[v]) ctd(v, C);
+}
+\end{lstlisting}
+
+\break

@@ -1,0 +1,23 @@
+\subsubsection{QOJ857 Social Distancing}
+
+\problemmeta{03/21/2026}{}{Observation, DFS}
+
+\paragraph{Statement}
+Given a tree with $n \le 2000$ nodes.
+You have two sets $S_1$ and $S_2$ which each element are independent (no two elements are connected by an edge).
+You have to find whether you can transform $S_1$ into $S_2$ by moving an element to another adjacent node such that all element are always independent with less than $4 \cdot n^2$ operations.
+If you can, print the operations too (you do not need to minimize the operation).
+
+\paragraph{Editorial}
+The first thing you have to observe is that if both $S_1$ and $S_2$ can transform into $S$, then $S_1$ can be transform into $S_2$.
+So what $S$ should we choose?
+First, we will re-index the tree sorted by its depth, tie breaking randomly.
+Then, we want to find the minimum lexicographical order of $S_1$ and $S_2$.
+We can do this by checking if we can move a node to $i$ from $1$ to $n$.
+If yes, we move it.
+After considering $i$, we will not touch $i$ anymore.
+This works because we consider $i$ from the lowest depth.
+But before checking if there exist a node that can move to $i$, we have to try to push all node away from $i$ first.
+If after these operations, $S_1$ and $S_2$ are the same, then the answer is yes, else no.
+
+\codelink{CNHW/2026/5.cpp}

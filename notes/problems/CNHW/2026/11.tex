@@ -1,0 +1,29 @@
+\subsubsection{QOJ970 Best Subsequence}
+
+\problemmeta{03/18/2026}{}{Persistent Segment Tree}
+
+\paragraph{Statement}
+Given an array $A$ of length $n \le 10^5$.
+There are $Q \le 10^5$ queries.
+In each query, you have to find the minimum value of $W$ such that there exist a subsequence $B_{1 \dots k}$ of $A_{l \dots r}$ and $B_i + B_{i \bmod k} \le W$.
+
+\paragraph{Editorial}
+\begin{enumerate}
+    \item \textbf{We can binary search for $W$ instead.}\\
+    We know that if $W$ works, then $W+1$ will definetly work.
+    Also, for each $W$, if we can find a subsequence $B$ such that $\text{n}(B) >= K$, then $W$ will work.
+    \item \textbf{Now, how do we find the maximum size of $B$ for each $W$?}\\
+    First, we know that we should include all $A_i \le \frac{W}{2}$, we call these element \textit{good}.
+    Then, between two \textit{good} elements, we can add at most one more element, because these element between is more than $\frac{W}{2}$, so no two of these number can stay together.
+    Also, the number we choose between two \textit{good} elements should be the minimum.
+    Then we can check if adding that number is possible.
+    \item \textbf{How do we find the maximum size of $B$ for each $W$ efficiently?}\\
+    Let $A_L$ be the right most index to the left that $A_L \le A_i$ and $R$ is the left most index to the right that $A_r \le A_i$.
+    We know that we can add $A_i$ if $2 \times A_i \le W$ or $\max(A_L + A_i, A_R + A_i) \le W$.
+    So we can use Persistent Segment Tree to count these number that is less than or equal to $W$ between $l$ and $r$ efficiently.
+    However, there might be some number that $L$ or $R$ is out of range, also the array $B$ is circular,  so we will find the left most index $L_W$ and right most index $R_W$ such that $2 \times A_{L_W} \le W$ and $2 \times A_{R_W} \le W$.
+    Then, we will find the minimum between $(l, L_W-1) \cup (R_W+1, r)$, and check if adding that element is possible.
+\end{enumerate}
+\textbf{Total complexity} : $\mathcal{O}(n\log_2^2(n))$
+
+\codelink{CNHW/2026/11.cpp}

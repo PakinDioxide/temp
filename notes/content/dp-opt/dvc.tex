@@ -1,0 +1,33 @@
+\subsection{Divide and Conquer}
+
+Divide and Conquer is also a technique we can use to optimize dynamic programming.
+
+Consider this DP formula
+
+\[ \text{dp}[k][i] = \text{min}_{j \le i}(\text{dp}[k-1][j-1] + C(j, i)) \]
+
+such that we can calculate $C(i, j)$ in $\mathcal{O}(1)$. If we solve this normally, it would take $\mathcal{O}(KN^2)$.
+
+We can use Divide and Conquer technique to optimize this DP formula. Let $\text{opt}(k, i)$ be the optimal value of $j$ that minimize the value of the RHS of the equation. This technique will \textbf{only work} if $\text{opt}(k, i-1) \le \text{opt}(k, i)$ for all $i$, which is hard to prove.
+
+From \href{https://codeforces.com/blog/entry/86306}{Quadrangle Inequality}, if we found out that $C(a, c) + C(b, d) \le C(a, d) + C(b, c)$ satisfies for all $a < b < c < d$, then $\text{opt}(k, i-1) \le \text{opt}(k, i)$ holds (the proof of this has been left as an exercise to the reader).
+
+Since calculating $\text{dp}[k][i]$ doesn't need other value in $\text{dp}[k]$, so we can calculate each $i$ independently. This is the code for the algorithm.
+
+\begin{lstlisting}
+void dnc(int l, int r, int optl, int optr) { // [l, r] is the current range, [optl, optr] is the range we need to check.
+    if (l > r) return;
+    int m = l + (r-l)/2, opt;
+    dp[k][m] = INT_MAX;
+    for (int i = optl; i <= optr; i++) {
+        if (dp[k][m] > dp[k-1][i-1] + C(i, m)) {
+            dp[k][m] = dp[k-1][i-1] + C(i, m);
+            opt = i;
+        }
+    }
+    dnc(l, m-1, optl, opt); // for all i < m, opt(k, i) <= opt(k, m)
+    dnc(m+1, r, opt, optr); // for all i > m, opt(k, i) >= opt(k, m)
+}
+\end{lstlisting}
+
+\break

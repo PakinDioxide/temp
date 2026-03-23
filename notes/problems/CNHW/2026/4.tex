@@ -1,0 +1,22 @@
+\subsubsection{QOJ856 Cactus}
+
+\problemmeta{03/13/2026}{}{Math, Combinatorics, DFS Tree}
+
+\paragraph{Statement}
+Given a cactus (a graph which each node is on atmost 1 cycle) with $n$ nodes and $m$ edges, $n \le 3\times10^5, m \le 4\times10^5$.
+Find the number of ways to paint this cactus by using one of the $k \le 10^9$ colors, such that no two adjacent nodes have the same color.
+
+\paragraph{Editorial}
+Lets consider a simpler problem first.
+\begin{enumerate}
+    \item \textbf{A path of $n$ nodes} : $\text{path}[n] = k \times (k-1)^{n-1}$. Obviously.
+    \item \textbf{A cycle of $n$ nodes} : $\text{cycle}[n] = \text{path}[n] - \text{cycle}[n-1]$.
+    We know that the number of ways is the $\text{path}[n]$ minus the number of ways that the start and the end have the same color.
+    We can convert this by merging the first and last node together, which will be the number of ways to color a cycle of $n-1$ nodes, i.e. $\text{cycle}[n-1]$.
+\end{enumerate}
+
+Now, how about a cactus? We just multiply the current answer by $\frac{k-1}{k}$ for each edge connecting different group.
+This works because each color is symmetric.
+So we just want to block a color out of $k$ colors.
+
+\codelink{CNHW/2026/4.cpp}

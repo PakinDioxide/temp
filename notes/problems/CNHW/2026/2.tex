@@ -1,0 +1,26 @@
+\subsubsection{QOJ837 Giant Penguin}
+
+\problemmeta{03/13/2026}{}{Centroid Decomposition, DFS Tree}
+
+\paragraph{Statement}
+Given an undirected graph with $n$ nodes and $m$ edges, $n \le 10^5, m \le 2\times10^5$. Each node is on at most $k \le 10$ cycles. You will perform $q \le 2\times10^5$ operations.
+\begin{enumerate}
+    \item Mark a node $u$.
+    \item Find the shortest distance from any marked node to node $u$.
+\end{enumerate}
+
+\paragraph{Editorial} Consider this problem, when the graph is a tree, how would you do it.
+The obvious solution would be doing a centroid decomposition, like the \textit{Xenia and Tree} problem.
+But because of this problem is a grpah, we can't do it.
+
+Consider a centroid node $c$, there will be at most $k$ edges connecting different subtrees (since $c$ can have at most $k$ cycles).
+We can just do a BFS from one of the end of that edge, and find the shortest path from it to the others.
+We call that node \textit{special}.
+
+When we do query Type 1, we can traverse up its centroid parents, and also each parent's \textit{special} node.
+We will update by $\text{ans}[c][sp] = \text{min}(\text{ans}[c][sp], \text{dist}[c][sp][u])$.
+For Type 2, we can do similarly, $\text{ANS} = \text{min}(\text{ANS}, \text{ans}[c][sp] + \text{dist}[c][sp][u])$.
+
+But since $\text{dist}[c][sp][u]$ size is $\mathcal{O}(n^2k)$, we have to change $c$ to $\text{dep}[c]$. This works because there is only one $c$ that has depth = $\text{dep}[c]$ and is the parent of $u$.
+
+\codelink{CNHW/2026/2.cpp}

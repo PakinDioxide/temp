@@ -1,0 +1,20 @@
+\subsubsection{QOJ862 Social Justice}
+
+\problemmeta{03/14/2026}{}{Binary Search}
+
+\paragraph{Statement}
+Given a set $\displaystyle \{A_1, A_2, A_3, \dots, A_n\}$.
+Let a subset $\displaystyle S \subset A$ be valid if $\text{max}(S) \le K \times \frac{\sum_{i}{S}}{\text{n}(S)}$.
+Let $x = \text{max}(\text{n}(S_{\text{valid}}))$.
+Find the set $\{A_1, A_2, A_3, \dots, A_n\} - (T_1 \cup T_2 \cup \dots \cup T_n$), where $T$ is the set of all valid $S$ which $\text{n}(S) = x$.
+
+\paragraph{Editorial}
+First, we will sort $A$.
+Then, we can find $x$ by doing a binary serach.
+We can check if $x = y$ is valid by doing a sliding window of size $y$.
+Finally, we can find if $A_i$ could be in a valid $S$.
+We will go through all valid $S$ which has no gap, then we will find the left most index which can replace $S_1$.
+We can do this by binary searching the index.
+This works because if $\{z, S_2, S_3, \dots, S_n\}$ works, then $\{w, S_2, S_3, \dots, S_n\}, w \geq z$ would work, because the maximum is the same, but the average is increased.
+
+\codelink{CNHW/2026/6.cpp}

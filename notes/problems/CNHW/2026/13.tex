@@ -1,0 +1,19 @@
+\subsubsection{QOJ975 Game}
+
+\problemmeta{03/19/2026}{}{Convex Hull}
+
+\paragraph{Statement}
+Given an array $A$ of length $n \le 5 \times 10^5$.
+You start at some random point $k \in \{1, 2, 3, \dots, n\}$.
+In each operation, you can choose to \textbf{stop} and receive $A_i$ points, or \textbf{move} randomly to left or right with equal probability, i.e. $k-1, k+1$ each with $50\%$ chance.
+Note that you can move only if you are not at $1$ or $n$.
+Find the maximum expected value of points you can get.
+
+\paragraph{Editorial}
+Consider this, for each index $i$, you will stop when ever you reach index $L$ or index $R$.
+The expected value of reaching $L$ before $R$ is $A_L \times \frac{R-i}{R-L}$, and $A_R \times \frac{i-L}{R-L}$ for $R$.
+This is exactly the $y$ value of the line that goes through point $(L, A_L)$ and $(R, A_R)$ at point $x = i$.
+Now, we want to find the maximum expected value, which is exactly the definition of the Upper Convex Hull.
+So we can solve this problem in $\mathcal{O}(n)$.
+
+\codelink{CNHW/2026/13.cpp}

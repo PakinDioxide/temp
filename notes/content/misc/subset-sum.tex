@@ -1,0 +1,24 @@
+\subsection{Subset Sum in \texorpdfstring{$\mathcal{O}(N\log(N) + \frac{N\sqrt{N}}{64})$}{O(N log N + sqrt(N) / 64)}}
+
+\begin{problem}
+    Given an array $a_1, a_2, a_3, \dots, a_n$ where $\sum_{i=1}^{n}a_i \le n$. Find all possible subset sum.
+\end{problem}
+
+If we did this naively, it would take $\mathcal{O}(N^2)$, but we can use some trick to reduce it to $\mathcal{O}(N\log(N) + \frac{N\sqrt{N}}{64})$.
+
+\begin{lemma}
+    Let $N$ be a positive integer. We can form every integer from $1$ to $N$ as a sum by using each element from the multiset $\{2^0, 2^1, 2^2, \dots, 2^k, r\}$ at most once, where $\sum_{i=0}^{k}2^i \le N < \sum_{i=0}^{k+1}2^i, r = N - \sum_{i=0}^{k}2^i$.
+\end{lemma}
+
+\begin{proof}
+    Using $2^0, 2^1, 2^2, \dots, 2^k$, we can form a sum of every number from $1$ to $\sum_{i=0}^{k}2^i$. Next, if we want to form a sum $N \ge x > \sum_{i=0}^{k}2^i$, we can use $r$ and some combination that has the sum of $x - r = x - N + \sum_{i=0}^{k}2^i \le \sum_{i=0}^{k}2^i$.
+\end{proof}
+
+Now, we can continuously decompose the number. Let $\texttt{cnt}[x]$ be the number of times
+that integer $x$ appears in the array. We will decompose into $S = \{x\cdot2^0, x\cdot2^1, \dots, x\cdot2^k, x\cdot r\}$, then increase $\texttt{cnt}[e], e \in S$. Each number takes at most $\mathcal{O}(\log{N})$ time, so this operation is $\mathcal{O}(N\log{N})$ in total.
+
+Since $\sum_{i=1}^{n}a_i \le n$, we know that there can be at most about $\sqrt{N}$ different numbers. So, the total time complexity will be $\mathcal{O}(N\sqrt{N})$ computing the subset sum naively, which with \texttt{std::bitset} will reduce the time to $\mathcal{O}(\frac{N\sqrt{N}}{64})$.
+
+So, we can solve the problem in $\mathcal{O}(N\log(N) + \frac{N\sqrt{N}}{64})$.
+
+\break

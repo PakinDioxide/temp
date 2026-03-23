@@ -1,0 +1,94 @@
+% ---------------------
+% Packages
+% ---------------------
+% \usepackage[utf8]{inputenc}   % encoding
+\usepackage[T1]{fontenc}      % font encoding
+\usepackage{lmodern}          % clean font
+
+\usepackage{geometry}         % page margins
+\geometry{margin=1in}
+
+\usepackage{amsmath, amssymb, amsthm}  % math
+\usepackage{mathtools}                  
+\usepackage{bookmark}
+\usepackage{hyperref}         % hyperlinks
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    unicode=true,
+    psdextra=true
+}
+
+\usepackage{graphicx}         % images
+\usepackage{float}           
+\usepackage{caption}          % in preamble
+
+\usepackage{xcolor}           % colored text
+
+\usepackage{listings}         % code snippets
+\usepackage{courier}          % monospace font for code
+
+% \usepackage{indentfirst}      % indent the first paragraph
+
+\usepackage{enumitem}         % customize lists
+\setlist{nosep}               % no extra space in lists
+\setlength{\parskip}{1em}
+
+% show equation fully
+% \everymath{\displaystyle}
+
+% ---------------------
+% Code snippet settings
+% ---------------------
+\lstset{
+    language=C++,
+    basicstyle=\footnotesize\ttfamily,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red!80!black},
+    % numbers=left,
+    % numberstyle=\tiny,
+    frame=single,
+    breaklines=true,
+    captionpos=b,
+    tabsize=4,
+    xleftmargin=2em,
+    xrightmargin=2em,
+    aboveskip=1em
+}
+
+% ---------------------
+% Theorem-like environments
+% ---------------------
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{problem}[theorem]{Problem}
+
+% ---------------------
+% Custom commands
+% ---------------------
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\ds}{\displaystyle}
+
+\usepackage{etoolbox} % Add this to your preamble
+
+\newcommand{\problemmeta}[3]{
+    \par\noindent 
+    \hspace*{1em}\begin{minipage}{\dimexpr\textwidth-2em}
+        \small 
+        \begin{tabular}{@{}l l}
+            \textbf{Date}  & : #1 \\
+            \ifblank{#2}{}{\textbf{Score} & : #2 \\} % Only renders if #2 is NOT empty
+            \textbf{Tags}  & : \textcolor{blue!80!black}{\texttt{#3}}
+        \end{tabular}
+    \end{minipage}
+}
+
+
+\newcommand{\codelink}[1]{
+    \noindent\textbf{Code :} \href{https://github.com/PakinDioxide/temp/tree/main/#1}{https://github.com/PakinDioxide/temp/tree/main/#1}%
+}

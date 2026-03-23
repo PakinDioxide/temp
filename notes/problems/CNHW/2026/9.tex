@@ -1,0 +1,23 @@
+\subsubsection{QOJ962 Thanks to MikeMirzayanov}
+
+\problemmeta{03/15/2026}{}{Divide and Conquer}
+
+\paragraph{Statement}
+Let an array $A$ size of $n \le 20,000$ be a permutaion of $\{1, 2, 3, \dots, n\}$.
+In each operation, you will split the array into $k < n$ segments, $S_1, S_2, S_3, \dots, S_k$.
+Then you reverse these segments, $S_k, S_{k-1}, S_{k-2}, \dots, S_1$ (keeping the order of $S_i$ the same).
+You have to perform this operation at most $120$ times to make this array sorted.
+
+\paragraph{Editorial}
+\begin{enumerate}
+    \item \textbf{What if the array consist of only $0$ and $1$ only?} \\
+    First, we can merge the connecting number, like $0010111001$ to $010101$.
+    Then, we can sort this array using $\log_{3}n$ times.
+    We can do this by pushing each $1$ to the middle $1$, like $010101$ to $001110$.
+    \item \textbf{Now, how do we move from $0$ and $1$ to our array $A$?} \\
+    For each element, we can let that element be $0$ if it is less than $\text{mid}$, and $1$ if it is more then $\text{mid}$.
+    Then we can just do this recursively.
+    This will take $\frac{1}{2}\log_2n\log_3n$ operations.
+\end{enumerate}
+
+\codelink{CNHW/2026/9.cpp}

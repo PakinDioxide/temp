@@ -1,0 +1,21 @@
+\subsection{Inverse Mod in \texorpdfstring{$\mathcal{O}(n)$}{O(n)}}
+
+Normally, finding inverse mod of $x$ takes $\mathcal{O}(\log m)$ time.
+But what if $x \le n$?
+Yes, we can precompute in $\mathcal{O}(n)$ and answer in $\mathcal{O}(1)$.
+
+\begin{align*}
+    m &\equiv q \cdot i + r &\pmod{m}\\
+    0 &\equiv \lfloor m/i \rfloor \cdot i + (m \bmod i) &\pmod{m}\\
+    -(m \bmod i) &\equiv \lfloor m/i \rfloor \cdot i &\pmod{m}\\
+    i^{-1} &\equiv -\lfloor m/i \rfloor \cdot (m \bmod i)^{-1} &\pmod{m}\\
+    i^{-1} &\equiv m - \lfloor m/i \rfloor \cdot (m \bmod i)^{-1} &\pmod{m}\\
+\end{align*}
+
+\begin{lstlisting}
+inv[1] = 1;
+for (int i = 2; i <= n; i++) {
+    inv[i] = (mod - (mod / i) * inv[mod % i] % mod) % mod;
+}
+\end{lstlisting}
+
